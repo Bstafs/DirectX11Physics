@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "Structures.h"
 #include "OBJLoader.h"
-
+#include "Debug.h"
 #include <vector>
 /*
 //#include <SpriteFont.h>
@@ -27,6 +27,8 @@
 */
 #include "GameObject.h"
 
+#define NUMBER_OF_CUBES 5
+#define FPS_60 1.0f/60.0f
 using namespace DirectX;
 
 //struct SimpleVertex

@@ -3,9 +3,9 @@
 GameObject::GameObject(string type, Geometry geometry, Material material) : _geometry(geometry), _type(type), _material(material)
 {
 	_parent = nullptr;
-	_position = XMFLOAT3();
-	_rotation = XMFLOAT3();
-	_scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	_position = vector3d();
+	_rotation = vector3d();
+	_scale = vector3d(1.0f, 1.0f, 1.0f);
 
 	_textureRV = nullptr;
 }
@@ -27,6 +27,7 @@ void GameObject::Update(float t)
 	{
 		XMStoreFloat4x4(&_world, this->GetWorldMatrix() * _parent->GetWorldMatrix());
 	}
+
 }
 
 void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
