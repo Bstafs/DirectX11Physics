@@ -6,7 +6,7 @@ GameObject::GameObject(string type, Geometry geometry, Material material) : _geo
 	_position = vector3d();
 	_rotation = vector3d();
 	_scale = vector3d(1.0f, 1.0f, 1.0f);
-
+	_transform = new Transform();
 	_textureRV = nullptr;
 }
 

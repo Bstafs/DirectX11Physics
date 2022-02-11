@@ -716,6 +716,13 @@ void Application::Update()
 	{
 		moveBackward(4);
 	}
+
+	if (GetAsyncKeyState('5') && 0x8000)
+	{
+		Debug::GetInstance().DebugWrite("KeyPressed\n");
+	}
+
+
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
 

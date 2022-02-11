@@ -5,6 +5,7 @@
 #include <string>
 #include "vector3d.h"
 #include "Debug.h"
+#include "Transform.h"
 using namespace DirectX;
 using namespace std;
 
@@ -64,6 +65,8 @@ public:
 
 	void Update(float t);
 	void Draw(ID3D11DeviceContext * pImmediateContext);
+
+	Transform* _transform;
 
 private:
 	vector3d _position;
