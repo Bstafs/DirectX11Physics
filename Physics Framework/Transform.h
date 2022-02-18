@@ -25,6 +25,9 @@ public:
 	void SetRotation(float x, float y, float z) { _rotation.x = x; _rotation.y = y; _rotation.z = z; }
 
 	vector3d GetRotation() const { return _rotation; }
+
+	XMMATRIX GetWorldMatrix() const { return XMLoadFloat4x4(&_world); }
+
 private:
 	vector3d _position;
 	vector3d _rotation;

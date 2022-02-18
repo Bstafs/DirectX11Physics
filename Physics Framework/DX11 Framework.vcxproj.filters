@@ -23,6 +23,9 @@
     <ClInclude Include="vector3d.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="ParticleModel.h" />
+    <ClInclude Include="Appearance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -34,6 +37,8 @@
     <ClCompile Include="vector3d.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="ParticleModel.cpp" />
+    <ClCompile Include="Appearance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
