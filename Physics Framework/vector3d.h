@@ -5,37 +5,37 @@
 #include<assert.h>
 using namespace std;
 
-class vector3d
+class Vector3
 {
 public:
 	//Variables
 	float x, y, z;
 
 	//Constructors
-	vector3d(); //constructor
-	vector3d(float x1, float y1, float z1 = 0); //construct with values.
-	vector3d(const vector3d& vec); //copy constructor
+	Vector3(); //constructor
+	Vector3(float x1, float y1, float z1 = 0); //construct with values.
+	Vector3(const Vector3& vec); //copy constructor
 
    //Arithemetic Operators – note use of overloading
-	vector3d operator+(const vector3d& vec); //addition
-	vector3d& operator+=(const vector3d& vec);//assign new result to vector
-	vector3d operator-(const vector3d& vec); //substraction
-	vector3d& operator-=(const vector3d& vec);//assign new result to vector
-	vector3d operator*(float value); //multiplication
-	vector3d& operator*=(float value); //assign new result to vector.
-	vector3d operator/(float value); //division
-	vector3d& operator/=(float value); //assign new result to vector
-	vector3d& operator=(const vector3d& vec);
+	Vector3 operator+(const Vector3& vec); //addition
+	Vector3& operator+=(const Vector3& vec);//assign new result to vector
+	Vector3 operator-(const Vector3& vec); //substraction
+	Vector3& operator-=(const Vector3& vec);//assign new result to vector
+	Vector3 operator*(float value); //multiplication
+	Vector3& operator*=(float value); //assign new result to vector.
+	Vector3 operator/(float value); //division
+	Vector3& operator/=(float value); //assign new result to vector
+	Vector3& operator=(const Vector3& vec);
 
 	inline double Length()const;
 
 	//Vector operations
-    inline float DotProduct(const vector3d& vec); //scalar dot_product
-	inline vector3d CrossProduct(const vector3d& vec);
-	inline vector3d Normalization(const vector3d& vec); //normalized vector
+    inline float DotProduct(const Vector3& vec); //scalar dot_product
+	inline Vector3 CrossProduct(const Vector3& vec);
+	inline Vector3 Normalization(const Vector3& vec); //normalized vector
 
 	//Scalar Operations
 	inline float Square(); //gives square of the vector
-	inline float Distance(const vector3d& vec1, const vector3d& vec2); //distance between two vectors
-	inline float Magnitude(const vector3d& vec); //magnitude of the vector
+	inline float Distance(const Vector3& vec1, const Vector3& vec2); //distance between two vectors
+	inline float Magnitude(const Vector3& vec); //magnitude of the vector
 };

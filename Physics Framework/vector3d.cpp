@@ -1,13 +1,13 @@
 #include "vector3d.h"
 
-vector3d::vector3d() //constructor
+Vector3::Vector3() //constructor
 {
 	x = 0;
 	y = 0;
 	z = 0;
 }
 
-vector3d::vector3d(float x1, float y1, float z1) //construct with values.
+Vector3::Vector3(float x1, float y1, float z1) //construct with values.
 {
 	x = x1;
 	y = y1;
@@ -15,7 +15,7 @@ vector3d::vector3d(float x1, float y1, float z1) //construct with values.
 }
 
 //The copy constructor is required for the same reason as above.
-vector3d::vector3d(const vector3d& vec)
+Vector3::Vector3(const Vector3& vec)
 {
 	x = vec.x;
 	y = vec.y;
@@ -23,12 +23,12 @@ vector3d::vector3d(const vector3d& vec)
 }
 
 //Addition
-vector3d vector3d ::operator+(const vector3d& vec)
+Vector3 Vector3 ::operator+(const Vector3& vec)
 {
-   return vector3d(x + vec.x, y + vec.y, z + vec.z);
+   return Vector3(x + vec.x, y + vec.y, z + vec.z);
 }
 
-vector3d& vector3d ::operator+=(const vector3d& vec)
+Vector3& Vector3 ::operator+=(const Vector3& vec)
 {
 	x += vec.x;
 	y += vec.y;
@@ -38,12 +38,12 @@ vector3d& vector3d ::operator+=(const vector3d& vec)
 }
 
 //Substraction//
-vector3d vector3d ::operator-(const vector3d& vec)
+Vector3 Vector3 ::operator-(const Vector3& vec)
 {
-	return vector3d(x - vec.x, y - vec.y, z - vec.z);
+	return Vector3(x - vec.x, y - vec.y, z - vec.z);
 }
 
-vector3d& vector3d::operator-=(const vector3d& vec)
+Vector3& Vector3::operator-=(const Vector3& vec)
 {
 	x -= vec.x;
 	y -= vec.y;
@@ -53,12 +53,12 @@ vector3d& vector3d::operator-=(const vector3d& vec)
 }
 
 //scalar multiplication
-vector3d vector3d ::operator*(float value)
+Vector3 Vector3 ::operator*(float value)
 {
-	return vector3d(x * value, y * value, z * value);
+	return Vector3(x * value, y * value, z * value);
 }
 
-vector3d& vector3d::operator*=(float value)
+Vector3& Vector3::operator*=(float value)
 {
 	x *= value;
 	y *= value;
@@ -68,14 +68,14 @@ vector3d& vector3d::operator*=(float value)
 }
 
 //scalar division
-vector3d vector3d ::operator/(float value)
+Vector3 Vector3 ::operator/(float value)
 {
 	assert(value != 0); //prevent divide by 0
 	//similar to multiplication
-	return vector3d(x / value, y / value, z / value);
+	return Vector3(x / value, y / value, z / value);
 }
 
-vector3d& vector3d ::operator/=(float value)
+Vector3& Vector3 ::operator/=(float value)
 {
 	assert(value != 0);
 	//similar to multiplication
@@ -86,7 +86,7 @@ vector3d& vector3d ::operator/=(float value)
 	return *this;
 }
 
-vector3d& vector3d::operator=(const vector3d& vec)
+Vector3& Vector3::operator=(const Vector3& vec)
 {
 	//similar to addition
 	x = vec.x;
@@ -96,19 +96,19 @@ vector3d& vector3d::operator=(const vector3d& vec)
 	return *this;
 }
 
-inline double vector3d::Length()const
+inline double Vector3::Length()const
 {
 	return sqrt(x * x + y * y + z * z);
 }
 
 //Dot product
-inline float vector3d::DotProduct(const vector3d& vec)
+inline float Vector3::DotProduct(const Vector3& vec)
 {
 	return (x * vec.x + y * vec.y + z * vec.z);
 }
 
 //Cross Product
-inline vector3d vector3d::CrossProduct(const vector3d& vec)
+inline Vector3 Vector3::CrossProduct(const Vector3& vec)
 {
 
 	//Calculate the terms (ni,nj,nk) using the dot product formula
@@ -124,14 +124,14 @@ inline vector3d vector3d::CrossProduct(const vector3d& vec)
 
 }
 // Vector Length
-inline float vector3d::Magnitude(const vector3d& vec)
+inline float Vector3::Magnitude(const Vector3& vec)
 {
 	return sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 // Vector Normalize
-inline vector3d vector3d::Normalization(const vector3d& vec)
+inline Vector3 Vector3::Normalization(const Vector3& vec)
 {
-	vector3d vector = vec;
+	Vector3 vector = vec;
 	double vector_length = vector.Length();
 
 	if (vector_length > std::numeric_limits<double>::epsilon())
@@ -144,13 +144,13 @@ inline vector3d vector3d::Normalization(const vector3d& vec)
 	return vector;
 }
 // Vector Square
-inline float vector3d::Square()
+inline float Vector3::Square()
 {
 	return x * x + y * y + z * z;
 }
 
 //Vector Distance
-inline float vector3d::Distance(const vector3d& vec1, const vector3d& vec2)
+inline float Vector3::Distance(const Vector3& vec1, const Vector3& vec2)
 {
 	float ySep = vec2.y - vec1.y;
 	float xSep = vec2.x - vec1.x;

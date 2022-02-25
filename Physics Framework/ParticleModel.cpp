@@ -1,5 +1,5 @@
 #include "ParticleModel.h"
-ParticleModel::ParticleModel(vector3d velocity, vector3d position)
+ParticleModel::ParticleModel(Vector3 velocity, Vector3 position)
 {
 	m_velocity = velocity;
 	m_position = position;
@@ -20,22 +20,22 @@ void ParticleModel::moveConstantVelocity(const float deltaTime)
 
 }
 
-vector3d ParticleModel::GetVelocity()
+Vector3 ParticleModel::GetVelocity()
 {
 	return m_velocity;
 }
 
-void ParticleModel::SetVelocity(vector3d velocity)
+void ParticleModel::SetVelocity(Vector3 velocity)
 {
 	m_velocity = velocity;
 }
 
-vector3d ParticleModel::GetPosition()
+Vector3 ParticleModel::GetPosition()
 {
 	return m_position;
 }
 
-void ParticleModel::SetPosition(vector3d position)
+void ParticleModel::SetPosition(Vector3 position)
 {
 	m_position = position;
 }

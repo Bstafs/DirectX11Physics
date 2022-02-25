@@ -12,6 +12,7 @@
 #include "OBJLoader.h"
 #include "Debug.h"
 #include <vector>
+#include "Quaternion.h"
 /*
 //#include <SpriteFont.h>
 #include "CommonStates.h"

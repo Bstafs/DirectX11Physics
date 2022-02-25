@@ -7,21 +7,21 @@ using namespace DirectX;
 class ParticleModel
 {
 public:
-	ParticleModel(vector3d velocity, vector3d position);
+	ParticleModel(Vector3 velocity, Vector3 position);
 	~ParticleModel();
 
 	void Update(float t);
 
 	void moveConstantVelocity(const float deltaTime);
 
-	vector3d GetVelocity();
-	void SetVelocity(vector3d velocity);
+	Vector3 GetVelocity();
+	void SetVelocity(Vector3 velocity);
 
-	vector3d GetPosition();
-	void SetPosition(vector3d position);
+	Vector3 GetPosition();
+	void SetPosition(Vector3 position);
 
 private:
-	vector3d m_velocity;
-	vector3d m_position;
+	Vector3 m_velocity;
+	Vector3 m_position;
 };
 
