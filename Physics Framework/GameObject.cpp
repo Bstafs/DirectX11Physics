@@ -4,7 +4,7 @@ GameObject::GameObject(string type, Geometry geometry, Material material)
 {
 	_transform = new Transform();
 	_appearance = new Appearance(type, geometry, material);
-	//_particleModel = new ParticleModel();
+	_particleModel = new ParticleModel(velocity, position);
 }
 
 GameObject::~GameObject()

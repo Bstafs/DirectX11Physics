@@ -17,7 +17,8 @@ void ParticleModel::Update(float t)
 
 void ParticleModel::moveConstantVelocity(const float deltaTime)
 {
-
+	m_displacement = m_velocity * deltaTime;
+	m_position = m_displacement + m_velocity * deltaTime;
 }
 
 Vector3 ParticleModel::GetVelocity()

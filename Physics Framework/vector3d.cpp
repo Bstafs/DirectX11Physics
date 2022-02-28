@@ -96,6 +96,16 @@ Vector3& Vector3::operator=(const Vector3& vec)
 	return *this;
 }
 
+Vector3 Vector3::operator%(const Vector3& vec)
+{
+	return Vector3(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
+}
+
+Vector3& Vector3::operator%=(const Vector3& vec)
+{
+	return *this = CrossProduct(vec);
+}
+
 inline double Vector3::Length()const
 {
 	return sqrt(x * x + y * y + z * z);
@@ -110,18 +120,7 @@ inline float Vector3::DotProduct(const Vector3& vec)
 //Cross Product
 inline Vector3 Vector3::CrossProduct(const Vector3& vec)
 {
-
-	//Calculate the terms (ni,nj,nk) using the dot product formula
-
-	//Then use to construct a vector using those terms and return
-
-	// as an example using vec to represent second vector
-
-	// the term ni in the output (new)vector is calculated as
-
-	// float ni=y*vec.z-z*vec.y;
-
-
+	return Vector3(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
 }
 // Vector Length
 inline float Vector3::Magnitude(const Vector3& vec)

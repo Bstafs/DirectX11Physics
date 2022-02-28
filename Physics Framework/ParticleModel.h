@@ -23,5 +23,6 @@ public:
 private:
 	Vector3 m_velocity;
 	Vector3 m_position;
+	Vector3 m_displacement;
 };
 

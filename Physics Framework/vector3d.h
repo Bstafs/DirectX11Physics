@@ -26,6 +26,8 @@ public:
 	Vector3 operator/(float value); //division
 	Vector3& operator/=(float value); //assign new result to vector
 	Vector3& operator=(const Vector3& vec);
+	Vector3 operator%(const Vector3& vec);
+	Vector3& operator%=(const Vector3& vec);
 
 	inline double Length()const;
 

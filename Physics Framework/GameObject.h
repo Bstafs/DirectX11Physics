@@ -37,5 +37,8 @@ private:
 	Transform* _transform;
 	Appearance* _appearance;
 	ParticleModel* _particleModel;
+
+	Vector3 velocity;
+	Vector3 position;
 };
 

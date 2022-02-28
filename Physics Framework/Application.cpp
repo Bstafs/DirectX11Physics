@@ -152,8 +152,6 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	noSpecMaterial.diffuse = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	noSpecMaterial.specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	noSpecMaterial.specularPower = 0.0f;
-
-
 	
 	GameObject * gameObject = new GameObject("Floor", planeGeometry, noSpecMaterial);
 	gameObject->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
@@ -667,15 +665,21 @@ void Application::Cleanup()
 void Application::moveForward(int objectNumber)
 {
 	Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
+	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
 	position.z -= 0.02f;
+	velocity.z -= 0.02f;
 	_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
+	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
 }
 
 void Application::moveBackward(int objectNumber)
 {
 	Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
+	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
 	position.z += 0.02f;
+	velocity.z += 0.02f;
 	_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
+	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
 }
 
 void Application::Update()
