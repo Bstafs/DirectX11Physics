@@ -3,7 +3,7 @@
 #include <directxmath.h>
 #include <d3d11_1.h>
 #include <string>
-#include "vector3d.h"
+#include "Vector3.h"
 #include "Debug.h"
 #include "Transform.h"
 #include "Appearance.h"

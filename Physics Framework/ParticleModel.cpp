@@ -31,6 +31,16 @@ void ParticleModel::SetVelocity(Vector3 velocity)
 	m_velocity = velocity;
 }
 
+Vector3 ParticleModel::GetAcceleration()
+{
+	return m_acceleration;
+}
+
+void ParticleModel::SetAcceleration(Vector3 acceleration)
+{
+	m_acceleration = acceleration;
+}
+
 Vector3 ParticleModel::GetPosition()
 {
 	return m_position;

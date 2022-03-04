@@ -665,21 +665,15 @@ void Application::Cleanup()
 void Application::moveForward(int objectNumber)
 {
 	Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
-	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
 	position.z -= 0.02f;
-	velocity.z -= 0.02f;
 	_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
-	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
 }
 
 void Application::moveBackward(int objectNumber)
 {
 	Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
-	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
 	position.z += 0.02f;
-	velocity.z += 0.02f;
 	_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
-	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
 }
 
 void Application::Update()
@@ -695,7 +689,7 @@ void Application::Update()
 		dwTimeStart = dwTimeCur;
 	}
 
-	deltaTime += (dwTimeCur - dwTimeStart) / 1000.0f;
+	deltaTime = (dwTimeCur - dwTimeStart) / 1000.0f;
 
 	if (deltaTime < FPS_60)
 	{

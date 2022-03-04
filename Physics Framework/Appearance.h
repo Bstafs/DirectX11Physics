@@ -1,8 +1,7 @@
 #pragma once
-#include "vector3d.h"
+#include "Vector3.h"
 #include <directxmath.h>
 #include <d3d11_1.h>
-#include "vector3d.h"
 #include <string>
 using namespace DirectX;
 
