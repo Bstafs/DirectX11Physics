@@ -2,17 +2,22 @@
 
 RigidBody::RigidBody()
 {
-	CalculateTorque();
-	CalculateInertiaTensor(1.0f, 1.0f, 1.0f);
-	CalculateAngularAcceleration();
-	CalculateAngularVelocity();
-	DampingForce();
-	CalculateAngularOrientation();
+
 }
 
 RigidBody::~RigidBody()
 {
 
+}
+
+void RigidBody::Update(float deltaTime)
+{
+	CalculateTorque();
+	CalculateInertiaTensor(1.0f, 1.0f, 1.0f);
+	CalculateAngularAcceleration();
+	CalculateAngularVelocity(deltaTime);
+	DampingForce(deltaTime);
+	CalculateAngularOrientation();
 }
 
 void RigidBody::CalculateTorque()
@@ -34,18 +39,20 @@ void RigidBody::CalculateAngularAcceleration()
 	XMStoreFloat3(&m_angularAcceleration, XMVector3Transform(XMLoadFloat3(&m_torque), inverted));
 }
 
-void RigidBody::CalculateAngularVelocity()
+void RigidBody::CalculateAngularVelocity(float deltaTime)
 {
+	m_newVelocity.x = m_oldVelocity.x + m_angularAcceleration.x * deltaTime;
+	m_newVelocity.y = m_oldVelocity.y + m_angularAcceleration.y * deltaTime;
+	m_newVelocity.z = m_oldVelocity.z + m_angularAcceleration.z * deltaTime;
 
-	XMStoreFloat3(&m_angularVelocity);
 }
 
-void RigidBody::DampingForce()
+void RigidBody::DampingForce(float deltaTime)
 {
 
 }
 
 void RigidBody::CalculateAngularOrientation()
 {
-
+	
 }

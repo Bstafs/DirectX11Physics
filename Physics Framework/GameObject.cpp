@@ -2,9 +2,10 @@
 
 GameObject::GameObject(string type, Geometry geometry, Material material)
 {
-	_transform = new Transform();
-	_appearance = new Appearance(type, geometry, material);
-	_particleModel = new ParticleModel(velocity, position);
+	m_transform = new Transform();
+	m_appearance = new Appearance(type, geometry, material);
+	m_particleModel = new ParticleModel(velocity, position);
+	m_rigidbody = new RigidBody();
 }
 
 GameObject::~GameObject()
@@ -13,11 +14,12 @@ GameObject::~GameObject()
 
 void GameObject::Update(float t)
 {
-	_transform->Update(t);
-	_particleModel->Update(t);
+	m_transform->Update(t);
+	m_particleModel->Update(t);
+	m_rigidbody->Update(t);
 }
 
 void GameObject::Draw(ID3D11DeviceContext * pImmediateContext)
 {
-	_appearance->Draw(pImmediateContext);
+	m_appearance->Draw(pImmediateContext);
 }

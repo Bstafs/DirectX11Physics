@@ -8,6 +8,8 @@
 #include "Transform.h"
 #include "Appearance.h"
 #include "ParticleModel.h"
+#include "RigidBody.h"
+
 using namespace DirectX;
 using namespace std;
 
@@ -19,9 +21,10 @@ public:
 
 	string GetType() const { return _type; }
 
-	Transform* GetTransform()const { return _transform; }
-	Appearance* GetAppearance()const { return _appearance; }
-	ParticleModel* GetParticleModel()const { return _particleModel; }
+	Transform* GetTransform()const { return m_transform; }
+	Appearance* GetAppearance()const { return m_appearance; }
+	ParticleModel* GetParticleModel()const { return m_particleModel; }
+	RigidBody* GetRigidBody()const { return m_rigidbody; }
 
 	void SetParent(GameObject * parent) { _parent = parent; }
 
@@ -34,9 +37,10 @@ private:
 
 	GameObject * _parent;
 
-	Transform* _transform;
-	Appearance* _appearance;
-	ParticleModel* _particleModel;
+	Transform* m_transform;
+	Appearance* m_appearance;
+	ParticleModel* m_particleModel;
+	RigidBody* m_rigidbody;
 
 	Vector3 velocity;
 	Vector3 position;

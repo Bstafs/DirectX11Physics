@@ -158,7 +158,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
-
+	gameObject->GetRigidBody()->CalculateAngularOrientation();
 	_gameObjects.push_back(gameObject);
 
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
@@ -167,12 +167,14 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
+		gameObject->GetRigidBody()->CalculateAngularOrientation();
 		_gameObjects.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
 	gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 	gameObject->GetTransform()->SetPosition(-4.0f, 0.5f, 10.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
+	gameObject->GetRigidBody()->CalculateAngularOrientation();
 	_gameObjects.push_back(gameObject);
 	return S_OK;
 }
@@ -730,6 +732,7 @@ void Application::Update()
 
 	_camera->SetPosition(cameraPos);
 	_camera->Update();
+	
 
 	// Update objects
 	for (auto gameObject : _gameObjects)
