@@ -73,8 +73,8 @@ Application::Application()
 	CWcullMode= nullptr;
 	DSLessEqual = nullptr;
 	RSCullNone = nullptr;
-	 _WindowHeight = 0;
-	 _WindowWidth = 0;
+	_WindowHeight = 0;
+	_WindowWidth = 0;
 }
 
 Application::~Application()
@@ -167,7 +167,6 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
-
 		_gameObjects.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);

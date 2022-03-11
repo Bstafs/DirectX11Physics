@@ -5,6 +5,9 @@ RigidBody::RigidBody()
 	CalculateTorque();
 	CalculateInertiaTensor(1.0f, 1.0f, 1.0f);
 	CalculateAngularAcceleration();
+	CalculateAngularVelocity();
+	DampingForce();
+	CalculateAngularOrientation();
 }
 
 RigidBody::~RigidBody()
@@ -12,10 +15,9 @@ RigidBody::~RigidBody()
 
 }
 
-XMFLOAT3 RigidBody::CalculateTorque()
+void RigidBody::CalculateTorque()
 {
-	m_torque = m_position.CrossProduct(m_force);  // Fix Calculate Torque
-	return m_torque;
+	XMStoreFloat3(&m_torque, XMVector3Cross(m_position, m_force));
 }
 
 void RigidBody::CalculateInertiaTensor(float dx, float dy, float dz)
@@ -29,5 +31,21 @@ void RigidBody::CalculateInertiaTensor(float dx, float dy, float dz)
 void RigidBody::CalculateAngularAcceleration()
 {
 	XMMATRIX inverted = XMMatrixInverse(nullptr, XMLoadFloat3x3(&m_inertiaTensor));
-	XMStoreFloat3(&m_angularAcceleration, XMVector3Transform(XMLoadFloat3(&m_torque), inverted)
+	XMStoreFloat3(&m_angularAcceleration, XMVector3Transform(XMLoadFloat3(&m_torque), inverted));
+}
+
+void RigidBody::CalculateAngularVelocity()
+{
+
+	XMStoreFloat3(&m_angularVelocity);
+}
+
+void RigidBody::DampingForce()
+{
+
+}
+
+void RigidBody::CalculateAngularOrientation()
+{
+
 }

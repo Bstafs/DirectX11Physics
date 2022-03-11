@@ -11,15 +11,19 @@ class RigidBody
 public:
 	RigidBody();
 	~RigidBody();
-	XMFLOAT3 CalculateTorque();
+	void CalculateTorque();
 	void CalculateInertiaTensor(float dx, float dy, float dz);
 	void CalculateAngularAcceleration();
+	void CalculateAngularVelocity();
+	void DampingForce();
+	void CalculateAngularOrientation();
 private:
-	Vector3 m_position = Vector3(0.0,0.0,0.0);
-	Vector3 m_force = Vector3(0.0,0.0,3.0);
+	XMVECTOR m_position;
+	XMVECTOR m_force;
 	XMFLOAT3 m_torque;
 	XMFLOAT3X3 m_inertiaTensor;
 	XMFLOAT3 m_angularAcceleration;
+	XMFLOAT3 m_angularVelocity;
 	float m_angularDamping = 0.99;
 };
 
