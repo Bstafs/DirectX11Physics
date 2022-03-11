@@ -41,8 +41,5 @@ private:
 	Appearance* m_appearance;
 	ParticleModel* m_particleModel;
 	RigidBody* m_rigidbody;
-
-	Vector3 velocity;
-	Vector3 position;
 };
 

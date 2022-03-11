@@ -1,15 +1,15 @@
 #pragma once
-#include "Vector3.h"
 #include "ParticleModel.h"
 #include <directxmath.h>
 #include <d3d11_1.h>
 #include "Quaternion.h"
 using namespace DirectX;
 
-class RigidBody
+class RigidBody : public ParticleModel
 {
 public:
-	RigidBody();
+	RigidBody() {}
+	RigidBody(shared_ptr<Transform> transform);
 	~RigidBody();
 	void Update(float deltaTime);
 	void CalculateAngularOrientation();

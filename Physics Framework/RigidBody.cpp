@@ -1,6 +1,6 @@
 #include "RigidBody.h"
 
-RigidBody::RigidBody()
+RigidBody::RigidBody(shared_ptr<Transform> transform) : ParticleModel(transform)
 {
 
 }
@@ -28,9 +28,9 @@ void RigidBody::CalculateTorque()
 void RigidBody::CalculateInertiaTensor(float dx, float dy, float dz)
 {
 	m_inertiaTensor = XMFLOAT3X3();
-	m_inertiaTensor._11 = (1 / 12) * 1.0 * (dy * dy + dz * dz); // change 1.0 to mass // _11 _12 _13
- 	m_inertiaTensor._22 = (1 / 12) * 1.0 * (dx * dx + dz * dz);                       // _21 _22 _23
- 	m_inertiaTensor._33 = (1 / 12) * 1.0 * (dx * dx + dy * dy);                       // _31 _32 _33
+	m_inertiaTensor._11 = (1 / 12) * m_mass * (dy * dy + dz * dz); // change 1.0 to mass // _11 _12 _13
+ 	m_inertiaTensor._22 = (1 / 12) * m_mass * (dx * dx + dz * dz);                       // _21 _22 _23
+ 	m_inertiaTensor._33 = (1 / 12) * m_mass * (dx * dx + dy * dy);                       // _31 _32 _33
 }
 
 void RigidBody::CalculateAngularAcceleration()

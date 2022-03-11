@@ -1,8 +1,12 @@
 #include "ParticleModel.h"
-ParticleModel::ParticleModel(Vector3 velocity, Vector3 position)
+ParticleModel::ParticleModel(shared_ptr<Transform> transform) : m_transform(transform)
 {
-	m_velocity = velocity;
-	m_position = position;
+	m_velocity = { 0.0f,0.0f,100.0f };
+	m_position = { 0.0f,0.0f,0.0f };
+	m_netForce = { 0.0f,0.0f,100.0f };
+	m_acceleration = { 0.0f,0.0f,100.0f };
+	m_mass = 1.0f;
+	m_weight = 10.0f;
 }
 
 ParticleModel::~ParticleModel()
@@ -10,43 +14,26 @@ ParticleModel::~ParticleModel()
 
 }
 
-void ParticleModel::Update(float t)
+void ParticleModel::Update(const float deltaTime)
 {
-	moveConstantVelocity(t);
+	Gravity();
+	moveConstantVelocity(deltaTime);
+	moveConstantAcceleration(deltaTime);
+	m_netForce = { 0.0f,0.0f,0.0f };
 }
 
 void ParticleModel::moveConstantVelocity(const float deltaTime)
 {
-	m_displacement = m_velocity * deltaTime;
-	m_position = m_displacement + m_velocity * deltaTime;
+	m_velocity += m_acceleration * deltaTime;
 }
 
-Vector3 ParticleModel::GetVelocity()
+void ParticleModel::moveConstantAcceleration(const float deltaTime)
 {
-	return m_velocity;
+	m_acceleration = m_netForce / m_mass;
 }
 
-void ParticleModel::SetVelocity(Vector3 velocity)
+void ParticleModel::Gravity()
 {
-	m_velocity = velocity;
-}
-
-Vector3 ParticleModel::GetAcceleration()
-{
-	return m_acceleration;
-}
-
-void ParticleModel::SetAcceleration(Vector3 acceleration)
-{
-	m_acceleration = acceleration;
-}
-
-Vector3 ParticleModel::GetPosition()
-{
-	return m_position;
-}
-
-void ParticleModel::SetPosition(Vector3 position)
-{
-	m_position = position;
+	m_weight = m_mass * m_gravity;
+	m_netForce.y -= m_weight * m_weightLimit;
 }
