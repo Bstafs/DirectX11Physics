@@ -160,18 +160,11 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
 	_gameObjects.push_back(gameObject);
 
-	Vector3 velocity = { 0.0f, 0.0f, 500.0f };
-	Vector3 accel = { 0.0f, 0.0f, 50.0f };
-	Vector3 netforce = { 0.0f, 0.0f, 20.0f };
-
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
 	{
 		gameObject = new GameObject("Cube " + i, cubeGeometry, shinyMaterial);
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
-		gameObject->GetParticleModel()->SetAcceleration(accel);
-;		gameObject->GetParticleModel()->SetVelocity(velocity);
-;		gameObject->GetParticleModel()->SetNetForce(netforce);
-		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
+	    gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
 		_gameObjects.push_back(gameObject);
 	}
@@ -670,17 +663,9 @@ void Application::Cleanup()
 void Application::moveForward(int objectNumber)
 {
 	Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
-	Vector3 accel = _gameObjects[objectNumber]->GetParticleModel()->GetAcceleration();
-	Vector3 netforce = _gameObjects[objectNumber]->GetParticleModel()->GetNetForce();
-	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
 	position.z -= 0.02f;
-	accel.z -= 50;
-	velocity.z -= 500.0f;
-	netforce.z -= 20;
 	_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
-	_gameObjects[objectNumber]->GetParticleModel()->SetAcceleration(accel);
-	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
-	_gameObjects[objectNumber]->GetParticleModel()->SetNetForce(netforce);
+
 }
 
 void Application::moveBackward(int objectNumber)

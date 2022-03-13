@@ -11,23 +11,21 @@ public:
 	RigidBody() {}
 	RigidBody(shared_ptr<Transform> transform);
 	~RigidBody();
-	void Update(float deltaTime);
-	void CalculateAngularOrientation();
+	void Update(const float deltaTime);
 private:
-	XMVECTOR m_position;
-	XMVECTOR m_force;
-	XMFLOAT3 m_torque;
-	XMFLOAT3X3 m_inertiaTensor;
-	XMFLOAT3 m_angularAcceleration;
-	XMFLOAT3 m_oldVelocity;
-	Vector3 m_newVelocity;
 
-	float m_angularDamping = 0.99;
+	XMFLOAT3 m_angularAcceleration;
+
+	XMFLOAT3X3 m_inertiaTensor;
+
+	Vector3 m_torque;
+	Vector3 m_angularVelocity;
+
+	float m_angularDamping;
+
+	Quaternion m_orientation;
 private:
-	void CalculateTorque();
 	void CalculateInertiaTensor(float dx, float dy, float dz);
-	void CalculateAngularAcceleration();
-	void CalculateAngularVelocity(float deltaTime);
-	void DampingForce(float deltaTime);
+
 };
 

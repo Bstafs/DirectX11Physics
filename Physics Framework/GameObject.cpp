@@ -12,7 +12,7 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::Update(float t)
+void GameObject::Update(const float t)
 {
 	m_transform->Update(t);
 	m_particleModel->Update(t);

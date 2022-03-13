@@ -16,8 +16,8 @@ public:
 
 	void Update(const float deltaTime);
 
-	void moveConstantVelocity(const float deltaTime);
-	void moveConstantAcceleration(const float deltaTime);
+	void MoveConstantVelocity(const float deltaTime);
+	void MoveConstantAcceleration(const float deltaTime);
 
 	Vector3 GetVelocity() const { return m_velocity; }
 	void SetVelocity(Vector3 velocity) { m_velocity = velocity; }
@@ -46,6 +46,7 @@ protected:
 	Vector3 m_velocity;
 	Vector3 m_position;
 	Vector3 m_acceleration;
+	Vector3 m_prevPosition;
 
 	float m_mass = 50.0f;
 
