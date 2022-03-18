@@ -6,7 +6,7 @@ Transform::Transform()
 	XMFLOAT4 XMFloat4Thing;
 	XMStoreFloat4(&XMFloat4Thing, XMVectorToQuaternion);
 
-	_position = Vector3();
+	m_position = Vector3();
 	_rotation = Quaternion(XMFloat4Thing.w, XMFloat4Thing.x, XMFloat4Thing.y, XMFloat4Thing.z);
 	_rotation.normalise();
 	_scale = Vector3(1.0f, 1.0f, 1.0f);
@@ -23,7 +23,7 @@ void Transform::Update(float t)
 	// Calculate world matrix
 	XMMATRIX scale = XMMatrixScaling(_scale.x, _scale.y, _scale.z);
 	XMMATRIX rotation;
-	XMMATRIX translation = XMMatrixTranslation(_position.x, _position.y, _position.z);
+	XMMATRIX translation = XMMatrixTranslation(m_position.x, m_position.y, m_position.z);
 
 
 

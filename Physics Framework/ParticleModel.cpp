@@ -1,11 +1,6 @@
 #include "ParticleModel.h"
-ParticleModel::ParticleModel(shared_ptr<Transform> transform) : m_transform(transform)
+ParticleModel::ParticleModel()
 {
-	m_velocity = { 0.0f,0.0f,100.0f };
-	m_netForce = { 0.0f,0.0f,100.0f };
-	m_acceleration = { 0.0f,0.0f,100.0f };
-	m_position = m_transform->GetPosition();
-	m_mass = 1.0f;
 	m_weight = 10.0f;
 }
 

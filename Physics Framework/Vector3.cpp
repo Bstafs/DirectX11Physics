@@ -157,3 +157,8 @@ inline float Vector3::Distance(const Vector3& vec1, const Vector3& vec2)
 
 	return sqrt(ySep * ySep + xSep * xSep + zSep * zSep);
 }
+
+XMFLOAT3 Vector3::Vector3ToXMFLOAT3()
+{
+	return XMFLOAT3(x, y, z);
+}

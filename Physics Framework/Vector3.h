@@ -3,8 +3,10 @@
 #include<iostream>
 #include<math.h>
 #include<assert.h>
+#include <directxmath.h>
+#include <d3d11_1.h>
 using namespace std;
-
+using namespace DirectX;
 class Vector3
 {
 public:
@@ -29,7 +31,9 @@ public:
 	Vector3 operator%(const Vector3& vec);
 	Vector3& operator%=(const Vector3& vec);
 
+	//
 	inline double Length()const;
+	XMFLOAT3 Vector3ToXMFLOAT3();
 
 	//Vector operations
     inline float DotProduct(const Vector3& vec); //scalar dot_product
@@ -40,4 +44,6 @@ public:
 	inline float Square(); //gives square of the vector
 	inline float Distance(const Vector3& vec1, const Vector3& vec2); //distance between two vectors
 	inline float Magnitude(const Vector3& vec); //magnitude of the vector
+
+
 };

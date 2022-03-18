@@ -12,10 +12,10 @@ public:
 	void Update(float t);
 
 	// Setters and Getters for position/rotation/scale
-	void SetPosition(Vector3 position) { _position = position; }
-	void SetPosition(float x, float y, float z) { _position.x = x; _position.y = y; _position.z = z; }
+	void SetPosition(Vector3 position) { m_position = position; }
+	void SetPosition(float x, float y, float z) { m_position.x = x; m_position.y = y; m_position.z = z; }
 
-	Vector3 GetPosition() const { return _position; }
+	Vector3 GetPosition() const { return m_position; }
 
 	void SetScale(Vector3 scale) { _scale = scale; }
 	void SetScale(float x, float y, float z) { _scale.x = x; _scale.y = y; _scale.z = z; }
@@ -36,8 +36,11 @@ public:
 
 	XMMATRIX GetWorldMatrix() const { return XMLoadFloat4x4(&_world); }
 
+protected:
+
+	Vector3 m_position;
+
 private:
-	Vector3 _position;
 	Quaternion _rotation;
 	Vector3 _scale;
 	XMFLOAT4X4 _world;
