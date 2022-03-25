@@ -32,23 +32,34 @@ public:
 	void SetNetForce(Vector3 netForce) { m_netForce = netForce; }
 	void SetNetForce(float x, float y, float z) { m_netForce.x = x; m_netForce.y = y; m_netForce.z = z; }
 
-	void SetMass(float mass) { m_mass = mass; }
 	float GetMass() const { return m_mass; }
+	void SetMass(float mass) { m_mass = mass; }
 
-	inline Vector3 AddForce(Vector3 force) { m_netForce = m_netForce + force; }
-	void AddForce(float x, float y, float z) { m_netForce.x = x, m_netForce.y = y, m_netForce.z = z; }
+	Vector3 GetDrag() const { return m_drag; }
+	void SetDrag(Vector3 drag) { m_drag = drag; }
+	void SetDrag(float x, float y, float z) { m_drag.x = x; m_drag.y = y; m_drag.z = z; }
+
+	void AddForce(Vector3 force) { m_netForce += force; }
 
 private:
 	void Gravity();
+	void DragForce();
+	void DragLaminar();
+	void DragTurbulent();
+
 	void UpdatePosition(const float deltaTime);
 protected:
 	Vector3 m_netForce;
 	Vector3 m_velocity;
 	Vector3 m_acceleration;
+	Vector3 m_friction;
+	Vector3 m_drag;
 
 	Transform* m_transform;
 
 	float m_mass;
+
+	bool m_useLaminar;
 private:
 	float m_gravity;
 	float m_weight;

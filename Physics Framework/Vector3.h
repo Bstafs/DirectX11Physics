@@ -5,8 +5,10 @@
 #include<assert.h>
 #include <directxmath.h>
 #include <d3d11_1.h>
+
 using namespace std;
 using namespace DirectX;
+
 class Vector3
 {
 public:
@@ -44,6 +46,8 @@ public:
 	inline float Square(); //gives square of the vector
 	inline float Distance(const Vector3& vec1, const Vector3& vec2); //distance between two vectors
 	inline float Magnitude(const Vector3& vec); //magnitude of the vector
-
+	
+	float Magnitude() { return sqrt(x * x + y * y + z * z); }
+    Vector3 Normalize() { float norm = 1 / Magnitude(); return Vector3(norm * x, norm * y, norm * z); }
 
 };
