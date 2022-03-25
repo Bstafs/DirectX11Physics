@@ -2,9 +2,8 @@
 
 RigidBody::RigidBody()
 {
+	m_orientation = Quaternion();
 	m_angularDamping = 0.9f;
-	m_angularAcceleration = { 0.0f, 0.0f, 0.0f };
-	m_angularVelocity = { 0.0f, 0.0f, 0.0f };
 }
 
 RigidBody::~RigidBody()
@@ -35,7 +34,7 @@ void RigidBody::Update(const float deltaTime)
 
 Vector3 RigidBody::CalculateTorque()
 {
-	m_torque = m_position.CrossProduct(m_netForce);
+	m_torque = Vector3(0, 0, 0); //m_position.CrossProduct(m_netForce);
 	return m_torque;
 }
 
@@ -76,6 +75,10 @@ void RigidBody::CalculateAngularOrientation(const float deltaTime)
 	m_orientation.addScaledVector(m_angularVelocity, deltaTime);
 	m_orientation.normalise();
 
-	XMMATRIX matrix = XMMATRIX();
-	CalculateTransformMatrixRowMajor(matrix, m_position, m_orientation);
+	XMMATRIX orientationMatrix = XMMATRIX();
+	CalculateTransformMatrixRowMajor(orientationMatrix, m_transform->GetPosition(), m_orientation);
+
+	//Passed to the transform
+
+
 }

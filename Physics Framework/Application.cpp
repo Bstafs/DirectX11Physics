@@ -166,10 +166,11 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 	    gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
-		gameObject->GetRigidBody()->SetNetForce(1.0f,1.0f,1.0f);
-		gameObject->GetRigidBody()->SetAcceleration(1.0f,1.0f,1.0f);
-		gameObject->GetRigidBody()->SetVelocity(1.0f,1.0f,1.0f);
-		gameObject->GetRigidBody()->SetMass(1.0f);
+		gameObject->GetParticleModel()->SetMass(10.0f);
+		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);
+		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
+		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 1.0f);
+		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		_gameObjects.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
@@ -666,20 +667,27 @@ void Application::Cleanup()
 
 void Application::moveForward(int objectNumber)
 {
-	Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
-	Vector3 velocity = _gameObjects[objectNumber]->GetRigidBody()->GetVelocity();
-	position.z -= 0.02f;
-	velocity.z -= 5.0f;
-	_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
-	_gameObjects[objectNumber]->GetRigidBody()->SetVelocity(velocity);
+	//Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
+	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
+	_gameObjects[objectNumber]->GetParticleModel()->AddForce(0.0f,0.0,5.0f);
+	//position.z -= 0.02f;
+	velocity.z -= 0.2f;
+	//_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
+	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
 
 }
 
 void Application::moveBackward(int objectNumber)
 {
-	Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
-	position.z += 0.02f;
-	_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
+	//Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
+	Vector3 velocity = _gameObjects[objectNumber-2]->GetParticleModel()->GetVelocity();
+	//Vector3 angularVelocity = _gameObjects[objectNumber-2]->GetRigidBody()->GetAngularVelocity();
+	//position.z += 0.02f;
+	velocity.z += 0.2f;
+//	angularVelocity.z += 1.0f;
+	//_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
+	_gameObjects[objectNumber-2]->GetParticleModel()->SetVelocity(velocity);
+	//_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 }
 
 void Application::Update()
@@ -725,6 +733,7 @@ void Application::Update()
 	{
 		Debug::GetInstance().DebugWrite("KeyPressed\n");
 	}
+
 	// Update camera
 	float angleAroundZ = XMConvertToRadians(_cameraOrbitAngleXZ);
 
@@ -743,7 +752,6 @@ void Application::Update()
 	for (auto gameObject : _gameObjects)
 	{
 		gameObject->Update(deltaTime);
-		gameObject->GetRigidBody()->Update(deltaTime);
 	}
 
 	dwTimeStart = dwTimeCur;

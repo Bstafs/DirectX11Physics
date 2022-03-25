@@ -11,11 +11,13 @@ public:
 	ParticleModel();
 	~ParticleModel();
 
+	void SetTransform(Transform* tf) { m_transform = tf; }
+	Transform* GetTransform() { return m_transform; }
 
 	void Update(const float deltaTime);
 
 	void MoveConstantVelocity(const float deltaTime);
-	void MoveConstantAcceleration(const float deltaTime);
+	void MoveConstantAcceleration();
 
 	// Setters and Getters for velocity/acceleration/netforce/mass
 	Vector3 GetVelocity() const { return m_velocity; }
@@ -33,20 +35,26 @@ public:
 	void SetMass(float newMass) { m_mass = newMass; }
 	float GetMass() const { return m_mass; }
 
+	inline Vector3 AddForce(Vector3 force) { m_netForce = m_netForce + force; }
+	void AddForce(float x, float y, float z) { m_netForce.x = x, m_netForce.y = y, m_netForce.z = z; }
+
 private:
 	void Gravity();
+	void UpdatePosition(const float deltaTime);
+
 
 protected:
 	Vector3 m_netForce;
 	Vector3 m_velocity;
-	Vector3 m_position;
 	Vector3 m_acceleration;
-	Vector3 m_prevPosition;
+
+	Transform* m_transform;
 
 	float m_mass;
 private:
-	float m_gravity = 9.8f;
-	float m_weight = 10.0f;
-	float m_weightLimit = 0.002f;
+	float m_gravity;
+	float m_weight;
+
+	bool m_hasGravity;
 };
 
