@@ -12,7 +12,7 @@ ParticleModel::~ParticleModel()
 
 void ParticleModel::Update(const float deltaTime)
 {
-	//Gravity();
+	Gravity();
 	MoveConstantAcceleration();
 	MoveConstantVelocity(deltaTime);
 	
@@ -35,9 +35,9 @@ void ParticleModel::MoveConstantAcceleration()
 void ParticleModel::UpdatePosition(const float deltaTime)
 {
 	Vector3 m_position = m_transform->GetPosition();
-	m_position.x += m_velocity.x * deltaTime;
-	m_position.y += m_velocity.y * deltaTime;
-	m_position.z += m_velocity.z * deltaTime;
+	m_position.x += m_velocity.x * deltaTime + 0.5 * m_acceleration.x * deltaTime * deltaTime;
+	m_position.y += m_velocity.y * deltaTime + 0.5 * m_acceleration.y * deltaTime * deltaTime;
+	m_position.z += m_velocity.z * deltaTime + 0.5 * m_acceleration.z * deltaTime * deltaTime;
 	m_transform->SetPosition(m_position.x, m_position.y, m_position.z);
 }
 

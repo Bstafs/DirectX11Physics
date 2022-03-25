@@ -23,6 +23,7 @@ public:
 	Vector3 GetScale() const { return m_scale; }
 
 	void SetRotation(Quaternion quat) { m_rotation = quat; }
+	void SetRotation(XMMATRIX mat) { m_matrixRotation = mat; }
 	void SetRotation(Vector3 rotation) { SetRotation(rotation.x,rotation.y,rotation.z); }
 	void SetRotation(float x, float y, float z) 
 	{
@@ -43,6 +44,7 @@ protected:
 
 private:
 	Quaternion m_rotation;
+	XMMATRIX m_matrixRotation;
 	Vector3 m_scale;
 	XMFLOAT4X4 m_world;
 };

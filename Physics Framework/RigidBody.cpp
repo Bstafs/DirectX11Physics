@@ -78,7 +78,6 @@ void RigidBody::CalculateAngularOrientation(const float deltaTime)
 	XMMATRIX orientationMatrix = XMMATRIX();
 	CalculateTransformMatrixRowMajor(orientationMatrix, m_transform->GetPosition(), m_orientation);
 
-	//Passed to the transform
-
+	m_transform->SetRotation(orientationMatrix);
 
 }

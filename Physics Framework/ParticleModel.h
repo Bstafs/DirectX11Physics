@@ -32,7 +32,7 @@ public:
 	void SetNetForce(Vector3 netForce) { m_netForce = netForce; }
 	void SetNetForce(float x, float y, float z) { m_netForce.x = x; m_netForce.y = y; m_netForce.z = z; }
 
-	void SetMass(float newMass) { m_mass = newMass; }
+	void SetMass(float mass) { m_mass = mass; }
 	float GetMass() const { return m_mass; }
 
 	inline Vector3 AddForce(Vector3 force) { m_netForce = m_netForce + force; }
@@ -41,8 +41,6 @@ public:
 private:
 	void Gravity();
 	void UpdatePosition(const float deltaTime);
-
-
 protected:
 	Vector3 m_netForce;
 	Vector3 m_velocity;

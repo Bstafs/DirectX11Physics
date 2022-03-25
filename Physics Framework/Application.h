@@ -28,7 +28,7 @@
 */
 #include "GameObject.h"
 
-#define NUMBER_OF_CUBES 1
+#define NUMBER_OF_CUBES 4
 #define FPS_60 1.0f/60.0f
 using namespace DirectX;
 
@@ -130,6 +130,8 @@ private:
 
 	ID3D11RasterizerState* CCWcullMode;
 	ID3D11RasterizerState* CWcullMode;
+
+	Transform* m_transform;
 
 private:
 	HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);

@@ -169,7 +169,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetParticleModel()->SetMass(10.0f);
 		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
-		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 1.0f);
+		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
 		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		_gameObjects.push_back(gameObject);
 	}
@@ -669,11 +669,15 @@ void Application::moveForward(int objectNumber)
 {
 	//Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
 	Vector3 velocity = _gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
+	Vector3 angularVelocity = _gameObjects[objectNumber]->GetRigidBody()->GetAngularVelocity();
 	_gameObjects[objectNumber]->GetParticleModel()->AddForce(0.0f,0.0,5.0f);
 	//position.z -= 0.02f;
 	velocity.z -= 0.2f;
+	angularVelocity.z -= 0.2f;
+
 	//_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
 	_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
+	_gameObjects[objectNumber]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 
 }
 
@@ -681,13 +685,13 @@ void Application::moveBackward(int objectNumber)
 {
 	//Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
 	Vector3 velocity = _gameObjects[objectNumber-2]->GetParticleModel()->GetVelocity();
-	//Vector3 angularVelocity = _gameObjects[objectNumber-2]->GetRigidBody()->GetAngularVelocity();
+	Vector3 angularVelocity = _gameObjects[objectNumber-2]->GetRigidBody()->GetAngularVelocity();
 	//position.z += 0.02f;
 	velocity.z += 0.2f;
-//	angularVelocity.z += 1.0f;
+    angularVelocity.z += 0.2f;
 	//_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
 	_gameObjects[objectNumber-2]->GetParticleModel()->SetVelocity(velocity);
-	//_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+	_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 }
 
 void Application::Update()
