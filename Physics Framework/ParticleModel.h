@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include <directxmath.h>
 #include <d3d11_1.h>
+#include "Debug.h"
 using namespace DirectX;
 using namespace std;
 class ParticleModel
@@ -19,7 +20,7 @@ public:
 	void MoveConstantVelocity(const float deltaTime);
 	void MoveConstantAcceleration();
 
-	// Setters and Getters for velocity/acceleration/netforce/mass
+	// Setters and Getters for velocity/acceleration/netforce/mass/drag
 	Vector3 GetVelocity() const { return m_velocity; }
 	void SetVelocity(Vector3 velocity) { m_velocity = velocity; }
 	void SetVelocity(float x, float y, float z) { m_velocity.x = x; m_velocity.y = y; m_velocity.z = z; }
@@ -41,11 +42,18 @@ public:
 
 	void AddForce(Vector3 force) { m_netForce += force; }
 
+	// Collisions
+	float GetCollisionRadius() const { return m_boundSphereRadius; }
+	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
+
+	void CheckCollisions();
+	bool CheckSphereColision(Vector3 position, float radius);
+
 private:
 	void Gravity();
 	void DragForce();
-	void DragLaminar();
-	void DragTurbulent();
+	void DragLaminarFlow();
+	void DragTurbulentFlow();
 
 	void UpdatePosition(const float deltaTime);
 protected:
@@ -65,5 +73,7 @@ private:
 	float m_weight;
 
 	bool m_hasGravity;
+
+	float m_boundSphereRadius;
 };
 

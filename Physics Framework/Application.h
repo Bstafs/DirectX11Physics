@@ -62,7 +62,7 @@ struct ConstantBuffer
 	XMMATRIX World;
 	XMMATRIX View;
 	XMMATRIX Projection;
-	
+
 	SurfaceInfo surface;
 
 	Light light;
@@ -78,40 +78,40 @@ private:
 	HWND                    _hWnd;
 	D3D_DRIVER_TYPE         _driverType;
 	D3D_FEATURE_LEVEL       _featureLevel;
-	ID3D11Device*           _pd3dDevice;
-	ID3D11DeviceContext*    _pImmediateContext;
-	IDXGISwapChain*         _pSwapChain;
+	ID3D11Device* _pd3dDevice;
+	ID3D11DeviceContext* _pImmediateContext;
+	IDXGISwapChain* _pSwapChain;
 	ID3D11RenderTargetView* _pRenderTargetView;
-	ID3D11VertexShader*     _pVertexShader;
-	ID3D11PixelShader*      _pPixelShader;
-	ID3D11InputLayout*      _pVertexLayout;
+	ID3D11VertexShader* _pVertexShader;
+	ID3D11PixelShader* _pPixelShader;
+	ID3D11InputLayout* _pVertexLayout;
 
-	ID3D11Buffer*           _pVertexBuffer;
-	ID3D11Buffer*           _pIndexBuffer;
+	ID3D11Buffer* _pVertexBuffer;
+	ID3D11Buffer* _pIndexBuffer;
 
-	ID3D11Buffer*           _pPlaneVertexBuffer;
-	ID3D11Buffer*           _pPlaneIndexBuffer;
+	ID3D11Buffer* _pPlaneVertexBuffer;
+	ID3D11Buffer* _pPlaneIndexBuffer;
 
-	ID3D11Buffer*           _pConstantBuffer;
+	ID3D11Buffer* _pConstantBuffer;
 
 	ID3D11DepthStencilView* _depthStencilView = nullptr;
 	ID3D11Texture2D* _depthStencilBuffer = nullptr;
 
-	ID3D11ShaderResourceView * _pTextureRV = nullptr;
+	ID3D11ShaderResourceView* _pTextureRV = nullptr;
 
-	ID3D11ShaderResourceView * _pGroundTextureRV = nullptr;
+	ID3D11ShaderResourceView* _pGroundTextureRV = nullptr;
 
 	ID3D11ShaderResourceView* _pHerculesTextureRV = nullptr;
 
-	ID3D11SamplerState * _pSamplerLinear = nullptr;
+	ID3D11SamplerState* _pSamplerLinear = nullptr;
 
 	MeshData objMeshData;
 
 	Light basicLight;
 
-	vector<GameObject *> _gameObjects;
+	vector<GameObject*> m_gameObjects;
 
-	Camera * _camera = nullptr;
+	Camera* _camera = nullptr;
 	float _cameraOrbitRadius = 7.0f;
 	float _cameraOrbitRadiusMin = 2.0f;
 	float _cameraOrbitRadiusMax = 50.0f;
@@ -144,6 +144,10 @@ private:
 
 	void moveForward(int objectNumber);
 	void moveBackward(int objectNumber);
+	void moveLeft(int objectNumber);
+	void moveRight(int objectNumber);
+
+	void CollisionResolution(GameObject* cube1, GameObject* cube2, float deltaTime);
 
 public:
 	Application();
