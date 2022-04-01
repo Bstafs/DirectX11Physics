@@ -147,8 +147,6 @@ private:
 	void moveLeft(int objectNumber);
 	void moveRight(int objectNumber);
 
-	void CollisionResolution(GameObject* cube1, GameObject* cube2, float deltaTime);
-
 public:
 	Application();
 	~Application();

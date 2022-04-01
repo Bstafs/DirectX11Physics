@@ -166,7 +166,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
-		gameObject->GetParticleModel()->SetCollisionRadius(20.0f);
+		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
 		gameObject->GetParticleModel()->SetMass(10.0f);
 		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
@@ -796,18 +796,23 @@ void Application::Update()
 	for (auto gameObject : m_gameObjects)
 	{
 		gameObject->Update(deltaTime);
+	}
 
-		if (gameObject->GetParticleModel()->CheckSphereColision(gameObject->GetTransform()->GetPosition(), gameObject->GetParticleModel()->GetCollisionRadius()))
+	for (int i = 0; i < m_gameObjects.size() - 1; i++)
+	{
+		for (int j = i + 1; j < m_gameObjects.size(); j++)
 		{
-			// m_gameObjects[4]->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
+			if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+			{
+				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
+				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
+			}
 		}
 	}
 
 	dwTimeStart = dwTimeCur;
 
 	deltaTime = deltaTime - FPS_60;
-
-//	Debug::GetInstance().DebugNum(deltaTime);
 }
 
 void Application::Draw()

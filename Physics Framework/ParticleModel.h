@@ -46,16 +46,17 @@ public:
 	float GetCollisionRadius() const { return m_boundSphereRadius; }
 	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
 
-	void CheckCollisions();
+	void CheckFloorCollisions();
 	bool CheckSphereColision(Vector3 position, float radius);
+	bool CheckAABBCollision();
 
 private:
 	void Gravity();
 	void DragForce();
 	void DragLaminarFlow();
 	void DragTurbulentFlow();
-
 	void UpdatePosition(const float deltaTime);
+
 protected:
 	Vector3 m_netForce;
 	Vector3 m_velocity;
@@ -75,5 +76,6 @@ private:
 	bool m_hasGravity;
 
 	float m_boundSphereRadius;
+
 };
 
