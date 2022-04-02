@@ -48,7 +48,7 @@ public:
 
 	void CheckFloorCollisions();
 	bool CheckSphereColision(Vector3 position, float radius);
-	bool CheckAABBCollision();
+	bool CheckAABBCollision(Vector3 position, float radius);
 
 private:
 	void Gravity();

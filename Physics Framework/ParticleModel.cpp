@@ -17,7 +17,6 @@ void ParticleModel::Update(const float deltaTime)
 	//Gravity();
 	MoveConstantAcceleration();
 	MoveConstantVelocity(deltaTime);
-	
 	UpdatePosition(deltaTime);
 	CheckFloorCollisions();
 
@@ -39,8 +38,8 @@ void ParticleModel::UpdatePosition(const float deltaTime)
 {
 	Vector3 m_position = m_transform->GetPosition();
 	m_position.x += m_velocity.x * deltaTime;
-	m_position.z += m_velocity.z * deltaTime;
 	m_position.y += m_velocity.y * deltaTime;
+	m_position.z += m_velocity.z * deltaTime;
 	m_transform->SetPosition(m_position.x, m_position.y, m_position.z);
 }
 
@@ -83,7 +82,13 @@ void ParticleModel::DragForce()
 
 void ParticleModel::DragLaminarFlow()
 {
+	float dragFactor = 0.8f;
 
+	m_drag.x = (dragFactor * m_velocity.x) * -1.0f;
+	m_drag.y = (dragFactor * m_velocity.y) * -1.0f;
+	m_drag.z = (dragFactor * m_velocity.z) * -1.0f;
+
+	m_netForce += m_drag;
 }
 
 void ParticleModel::DragTurbulentFlow()
@@ -113,17 +118,17 @@ void ParticleModel::CheckFloorCollisions()
 {
 	Vector3 objectPosition = m_transform->GetPosition();
 
-	if (objectPosition.y < 0)
+	if (objectPosition.y < 0.0)
 	{
-		m_velocity.y = 0.0f; // Counting for Gravity
+		m_velocity.y = 0.5f; // Counting for Gravity
 
-		objectPosition.y = 0.0f;
+		objectPosition.y = 0.5f;
 	}
-	else if (objectPosition.y > 9.5f)
+	else if (objectPosition.y > 20.0f)
 	{
 		m_velocity.y = 0.0f; // Counting for Gravity
 
-		objectPosition.y = 9.5f;
+		objectPosition.y = 20.0f;
 	}
 
 	m_transform->SetPosition(objectPosition);
@@ -136,11 +141,21 @@ bool ParticleModel::CheckSphereColision(Vector3 position, float radius)
 		(m_transform->GetPosition().z - position.z) * (m_transform->GetPosition().z - position.z) <= m_boundSphereRadius * radius);
 }
 
-bool ParticleModel::CheckAABBCollision()
+bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
 {
-	float radius = GetCollisionRadius();
 	float radiusSq = radius * radius;
+	float distanceSq = (position.x * position.x) + (position.y * position.y) + (position.z * position.z);
+	float distance = sqrt(distanceSq); 
 
 	int dMin = 0;
 
+	for (int i = 0; i < 3; i++)
+	{
+		
+	}
+
+	if (dMin <= radiusSq)
+	{
+		return true;
+	}
 }
