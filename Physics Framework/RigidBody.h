@@ -36,7 +36,7 @@ private:
 
 	Transform* m_transform;
 
-	float m_mass = 10.0f;
+	float m_mass = 1.0f;
 
 private:
 	Vector3 CalculateTorque();

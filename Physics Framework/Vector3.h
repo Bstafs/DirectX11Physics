@@ -48,8 +48,7 @@ public:
 	inline float Magnitude(const Vector3& vec); //magnitude of the vector
 	
 	float Magnitude() { return sqrt(x * x + y * y + z * z); }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	Vector3 Normalize()
 	{
 		if (x == 0 && y == 0 && z == 0)
@@ -59,11 +58,4 @@ public:
 		float norm = 1 / Magnitude();
 		return Vector3(norm * x, norm * y, norm * z);
 	}
-=======
-    Vector3 Normalize() { float norm = 1 / Magnitude(); return Vector3(norm * x, norm * y, norm * z); }
->>>>>>> parent of e14c98f (Week 10 - Finished Forces)
-=======
-    Vector3 Normalize() { float norm = 1 / Magnitude(); return Vector3(norm * x, norm * y, norm * z); }
->>>>>>> parent of e14c98f (Week 10 - Finished Forces)
-
 };
