@@ -47,8 +47,15 @@ void ParticleModel::UpdatePosition(const float deltaTime)
 
 void ParticleModel::Gravity()
 {
-	m_weight = m_mass * m_gravity;
-	m_netForce.y -= m_weight;
+	if (m_toggleGravity == true)
+	{
+		m_weight = m_mass * m_gravity;
+		m_netForce.y -= m_weight;
+	}
+	else
+	{
+		return;
+	}
 }
 
 void ParticleModel::DragForce()
@@ -112,33 +119,6 @@ void ParticleModel::Thrust(float deltaTime)
 	m_thrust.y = m_velocity.z * (m_mass / deltaTime);
 
 	m_netForce += m_thrust;
-}
-
-void ParticleModel::CheckFloorCollisions()
-{
-	Vector3 objectPosition = m_transform->GetPosition();
-
-	if (objectPosition.y < 0.1)
-	{
-		m_hasGravity = false;
-	}
-	else if(objectPosition.y > 0)
-	{
-		m_hasGravity = true;
-	}
-
-	if (m_hasGravity == true)
-	{
-		Gravity();
-	}
-	else if(m_hasGravity == false)
-	{
-		m_velocity.y = 0.0f;
-
-		objectPosition.y = 0.0f;
-	}
-
-	m_transform->SetPosition(objectPosition);
 }
 
 bool ParticleModel::CheckSphereColision(Vector3 position, float radius)

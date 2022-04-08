@@ -44,6 +44,9 @@ public:
 	void SetFriction(Vector3 friction) { m_friction = friction; }
 	void SetFriction(float x, float y, float z) { m_friction.x = x; m_friction.y = y; m_friction.z = z; }
 
+	bool ToggleGravity() const { return m_toggleGravity; }
+	void SetToggleGravity(bool gravity){ m_toggleGravity = gravity; }
+
 	void AddForce(Vector3 force) { m_netForce += force; }
 
 	// Collisions
@@ -54,7 +57,6 @@ public:
 	bool CheckAABBCollision(Vector3 position, float radius);
 
 private:
-	void CheckFloorCollisions();
 	void Gravity();
 	void DragForce();
 	void DragLaminarFlow();
@@ -81,6 +83,7 @@ private:
 	float m_weight;
 
 	bool m_hasGravity;
+	bool m_toggleGravity;
 
 	float m_boundSphereRadius;
 

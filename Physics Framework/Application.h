@@ -110,7 +110,6 @@ private:
 	Light basicLight;
 
 	vector<GameObject*> m_gameObjects;
-	vector<GameObject*> m_gameObjectsCubes;
 
 	Camera* _camera = nullptr;
 	float _cameraOrbitRadius = 7.0f;

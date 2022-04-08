@@ -158,6 +158,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
+	gameObject->GetParticleModel()->SetToggleGravity(false);
 	m_gameObjects.push_back(gameObject);
 
 	for (auto i = 0; i < NUMBER_OF_CUBES; i++)
@@ -166,6 +167,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f),5.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
+		gameObject->GetParticleModel()->SetToggleGravity(true);
 		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
 		gameObject->GetParticleModel()->SetMass(10.0f);
 		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);
@@ -175,7 +177,6 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetParticleModel()->SetFriction(0.0f, 0.0f, 0.0f);
 		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		m_gameObjects.push_back(gameObject);
-		m_gameObjectsCubes.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
 	gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
@@ -792,7 +793,7 @@ void Application::Update()
 		gameObject->Update(deltaTime);
 	}
 
-	//// Update Collisions
+	// Update Collisions
 	for (int i = 0; i < m_gameObjects.size() - 1; i++)
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
@@ -802,16 +803,6 @@ void Application::Update()
 				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
 				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
 			}
-		}
-	}
-
-	// Check Collsion With Floor
-	for (int i = 0; i < m_gameObjectsCubes.size(); i++)
-	{
-		if (m_gameObjects[0]->GetParticleModel()->CheckSphereColision(m_gameObjectsCubes[i]->GetTransform()->GetPosition(), m_gameObjectsCubes[i]->GetParticleModel()->GetCollisionRadius()))
-		{
-			m_gameObjectsCubes[i]->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
-			m_gameObjects[0]->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 		}
 	}
 
