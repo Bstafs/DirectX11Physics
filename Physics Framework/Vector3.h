@@ -48,6 +48,14 @@ public:
 	inline float Magnitude(const Vector3& vec); //magnitude of the vector
 	
 	float Magnitude() { return sqrt(x * x + y * y + z * z); }
-    Vector3 Normalize() { float norm = 1 / Magnitude(); return Vector3(norm * x, norm * y, norm * z); }
+    Vector3 Normalize() 
+	{ 
+		if (x == 0 && y == 0 && z == 0)
+		{
+			return Vector3();
+		}
+		float norm = 1 / Magnitude();
+		return Vector3(norm * x, norm * y, norm * z); 
+	}
 
 };

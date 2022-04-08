@@ -1,9 +1,9 @@
 #include "ParticleModel.h"
 ParticleModel::ParticleModel()
 {
-	m_weight = 10.0f;
 	m_gravity = 9.81f;
 	m_useLaminar = false;
+	m_hasGravity = true;
 }
 
 ParticleModel::~ParticleModel()
@@ -13,12 +13,13 @@ ParticleModel::~ParticleModel()
 
 void ParticleModel::Update(const float deltaTime)
 {
+	CheckFloorCollisions();
+	Friction();
 	DragForce();
-	//Gravity();
 	MoveConstantAcceleration();
 	MoveConstantVelocity(deltaTime);
+	Thrust(deltaTime);
 	UpdatePosition(deltaTime);
-	CheckFloorCollisions();
 
 	m_netForce = Vector3(0, 0, 0);
 	m_acceleration = Vector3(0, 0, 0);
@@ -47,25 +48,6 @@ void ParticleModel::Gravity()
 {
 	m_weight = m_mass * m_gravity;
 	m_netForce.y -= m_weight;
-
-	//if (m_transform->GetPosition().y < 0.5f)
-	//{
-	//	m_hasGravity = false;
-	//}
-	//else
-	//{
-	//	m_hasGravity = true;
-	//}
-
-	//if (m_hasGravity == true)
-	//{
-	//	m_weight = m_mass * m_gravity;
-	//	m_netForce.y -= m_weight;
-	//}
-	//else
-	//{
-	//	return;
-	//}
 }
 
 void ParticleModel::DragForce()
@@ -103,32 +85,56 @@ void ParticleModel::DragTurbulentFlow()
 
 	// 0.5 * fluid density * drag coefficient * reference area * velocity * velocity
    	m_drag.x = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
-	m_drag.y = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;	
 	m_drag.z = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
 
-	m_drag = (unitVelocity * m_drag.x) * -1.0f;
-	m_drag = (unitVelocity * m_drag.y) * -1.0f;
 	m_drag = (unitVelocity * m_drag.z) * -1.0f;
-
+	m_drag = (unitVelocity * m_drag.x) * -1.0f;
 
 	m_netForce += m_drag;
+}
+
+void ParticleModel::Friction()
+{
+	float frictionCoeffient = 0.5f;
+	Vector3 unitVelocity = m_velocity.Normalize();
+
+	m_friction.x = m_weight * frictionCoeffient;
+
+	m_netForce += (unitVelocity * m_friction.x) * -1.0f;
+	m_netForce += (unitVelocity * m_friction.z) * -1.0f;
+}
+
+void ParticleModel::Thrust(float deltaTime)
+{
+	m_thrust.x = m_velocity.x * (m_mass / deltaTime);
+	m_thrust.z = m_velocity.z * (m_mass / deltaTime);
+	m_thrust.y = m_velocity.z * (m_mass / deltaTime);
+
+	m_netForce += m_thrust;
 }
 
 void ParticleModel::CheckFloorCollisions()
 {
 	Vector3 objectPosition = m_transform->GetPosition();
 
-	if (objectPosition.y < 0.0)
+	if (objectPosition.y < 0.1)
 	{
-		m_velocity.y = 0.5f; // Counting for Gravity
-
-		objectPosition.y = 0.5f;
+		m_hasGravity = false;
 	}
-	else if (objectPosition.y > 20.0f)
+	else if(objectPosition.y > 0)
 	{
-		m_velocity.y = 0.0f; // Counting for Gravity
+		m_hasGravity = true;
+	}
 
-		objectPosition.y = 20.0f;
+	if (m_hasGravity == true)
+	{
+		Gravity();
+	}
+	else if(m_hasGravity == false)
+	{
+		m_velocity.y = 0.0f;
+
+		objectPosition.y = 0.0f;
 	}
 
 	m_transform->SetPosition(objectPosition);
@@ -146,16 +152,6 @@ bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
 	float radiusSq = radius * radius;
 	float distanceSq = (position.x * position.x) + (position.y * position.y) + (position.z * position.z);
 	float distance = sqrt(distanceSq); 
-
-	int dMin = 0;
-
-	for (int i = 0; i < 3; i++)
-	{
-		
-	}
-
-	if (dMin <= radiusSq)
-	{
-		return true;
-	}
+    
+	return true;
 }

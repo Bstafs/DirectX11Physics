@@ -40,21 +40,27 @@ public:
 	void SetDrag(Vector3 drag) { m_drag = drag; }
 	void SetDrag(float x, float y, float z) { m_drag.x = x; m_drag.y = y; m_drag.z = z; }
 
+	Vector3 GetFriction() const { return m_friction; }
+	void SetFriction(Vector3 friction) { m_friction = friction; }
+	void SetFriction(float x, float y, float z) { m_friction.x = x; m_friction.y = y; m_friction.z = z; }
+
 	void AddForce(Vector3 force) { m_netForce += force; }
 
 	// Collisions
 	float GetCollisionRadius() const { return m_boundSphereRadius; }
 	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
 
-	void CheckFloorCollisions();
 	bool CheckSphereColision(Vector3 position, float radius);
 	bool CheckAABBCollision(Vector3 position, float radius);
 
 private:
+	void CheckFloorCollisions();
 	void Gravity();
 	void DragForce();
 	void DragLaminarFlow();
 	void DragTurbulentFlow();
+	void Friction();
+	void Thrust(float deltaTime);
 	void UpdatePosition(const float deltaTime);
 
 protected:
@@ -63,6 +69,7 @@ protected:
 	Vector3 m_acceleration;
 	Vector3 m_friction;
 	Vector3 m_drag;
+	Vector3 m_thrust;
 
 	Transform* m_transform;
 

@@ -34,7 +34,7 @@ void RigidBody::Update(const float deltaTime)
 
 Vector3 RigidBody::CalculateTorque()
 {
-	m_torque = Vector3(0, 0, 0); //m_position.CrossProduct(m_netForce);
+	m_torque = Vector3(0, 0, 0);
 	return m_torque;
 }
 

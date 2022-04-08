@@ -164,7 +164,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	{
 		gameObject = new GameObject("Cube " + i, cubeGeometry, shinyMaterial);
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
-		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
+		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f),5.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
 		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
 		gameObject->GetParticleModel()->SetMass(10.0f);
@@ -172,6 +172,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetDrag(4.0f, 4.0f, 4.0f);
+		gameObject->GetParticleModel()->SetFriction(0.0f, 0.0f, 0.0f);
 		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		m_gameObjects.push_back(gameObject);
 	}
@@ -669,32 +670,24 @@ void Application::Cleanup()
 
 void Application::moveForward(int objectNumber)
 {
-	//Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
 	Vector3 velocity = m_gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
-	//Vector3 angularVelocity = m_gameObjects[objectNumber]->GetRigidBody()->GetAngularVelocity();
-	//Vector3 force = { 0.0f,0.0f,20.0f };
-	//m_gameObjects[objectNumber]->GetParticleModel()->AddForce(force);
-	//position.z -= 0.02f;
+	Vector3 angularVelocity = m_gameObjects[objectNumber]->GetRigidBody()->GetAngularVelocity();
 	velocity.z -= 0.2f;
-	//angularVelocity.z -= 0.2f;
+	angularVelocity.y -= 0.2f;
 
-	//_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
 	m_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
-	//m_gameObjects[objectNumber]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+	m_gameObjects[objectNumber]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 
 }
 
 void Application::moveBackward(int objectNumber)
 {
-	//Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
 	Vector3 velocity = m_gameObjects[objectNumber - 2]->GetParticleModel()->GetVelocity();
-	//	Vector3 angularVelocity = m_gameObjects[objectNumber - 2]->GetRigidBody()->GetAngularVelocity();
-		//position.z += 0.02f;
+	Vector3 angularVelocity = m_gameObjects[objectNumber - 2]->GetRigidBody()->GetAngularVelocity();
 	velocity.z += 0.2f;
-	//angularVelocity.z += 0.2f;
-	//_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
+	angularVelocity.z += 0.2f;
 	m_gameObjects[objectNumber - 2]->GetParticleModel()->SetVelocity(velocity);
-	//m_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+	m_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 }
 
 void Application::moveLeft(int objectNumber)
@@ -798,6 +791,7 @@ void Application::Update()
 		gameObject->Update(deltaTime);
 	}
 
+	// Update Collisions
 	for (int i = 0; i < m_gameObjects.size() - 1; i++)
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
@@ -807,6 +801,15 @@ void Application::Update()
 				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
 				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
 			}
+		}
+	}
+
+	// Check Collsion With Floor
+	for (int i = 0; i < m_gameObjects.size(); i++)
+	{
+		if (m_gameObjects[0]->GetParticleModel()->CheckSphereColision(m_gameObjects[i]->GetTransform()->GetPosition(), m_gameObjects[i]->GetParticleModel()->GetCollisionRadius()))
+		{
+			m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
 		}
 	}
 
