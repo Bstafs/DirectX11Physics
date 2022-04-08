@@ -13,7 +13,8 @@ ParticleModel::~ParticleModel()
 
 void ParticleModel::Update(const float deltaTime)
 {
-	CheckFloorCollisions();
+	//CheckFloorCollisions();
+	Gravity();
 	Friction();
 	DragForce();
 	MoveConstantAcceleration();

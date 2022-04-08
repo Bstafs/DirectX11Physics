@@ -175,6 +175,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetParticleModel()->SetFriction(0.0f, 0.0f, 0.0f);
 		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		m_gameObjects.push_back(gameObject);
+		m_gameObjectsCubes.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
 	gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
@@ -791,7 +792,7 @@ void Application::Update()
 		gameObject->Update(deltaTime);
 	}
 
-	// Update Collisions
+	//// Update Collisions
 	for (int i = 0; i < m_gameObjects.size() - 1; i++)
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
@@ -805,11 +806,12 @@ void Application::Update()
 	}
 
 	// Check Collsion With Floor
-	for (int i = 0; i < m_gameObjects.size(); i++)
+	for (int i = 0; i < m_gameObjectsCubes.size(); i++)
 	{
-		if (m_gameObjects[0]->GetParticleModel()->CheckSphereColision(m_gameObjects[i]->GetTransform()->GetPosition(), m_gameObjects[i]->GetParticleModel()->GetCollisionRadius()))
+		if (m_gameObjects[0]->GetParticleModel()->CheckSphereColision(m_gameObjectsCubes[i]->GetTransform()->GetPosition(), m_gameObjectsCubes[i]->GetParticleModel()->GetCollisionRadius()))
 		{
-			m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+			m_gameObjectsCubes[i]->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
+			m_gameObjects[0]->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 		}
 	}
 
