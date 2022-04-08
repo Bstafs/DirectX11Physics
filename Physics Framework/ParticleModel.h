@@ -41,6 +41,7 @@ public:
 	void SetDrag(float x, float y, float z) { m_drag.x = x; m_drag.y = y; m_drag.z = z; }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Vector3 GetFriction() const { return m_friction; }
 	void SetFriction(Vector3 friction) { m_friction = friction; }
 	void SetFriction(float x, float y, float z) { m_friction.x = x; m_friction.y = y; m_friction.z = z; }
@@ -48,6 +49,8 @@ public:
 	bool ToggleGravity() const { return m_toggleGravity; }
 	void SetToggleGravity(bool gravity){ m_toggleGravity = gravity; }
 
+=======
+>>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 =======
 >>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 	void AddForce(Vector3 force) { m_netForce += force; }

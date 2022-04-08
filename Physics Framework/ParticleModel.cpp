@@ -14,9 +14,12 @@ ParticleModel::~ParticleModel()
 void ParticleModel::Update(const float deltaTime)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//CheckFloorCollisions();
 	Gravity();
 	Friction();
+=======
+>>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 =======
 >>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 	DragForce();
@@ -83,6 +86,9 @@ void ParticleModel::Gravity()
 	//{
 	//	return;
 	//}
+<<<<<<< HEAD
+>>>>>>> parent of e14c98f (Week 10 - Finished Forces)
+=======
 >>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 }
 
