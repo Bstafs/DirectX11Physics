@@ -69,7 +69,7 @@ void ParticleModel::Gravity()
 	if (m_toggleGravity == true)
 	{
 		m_weight = m_mass * m_gravity;
-	  //m_netForce.y -= m_weight;
+	    m_netForce.y -= m_weight;
 	}
 	else
 	{
