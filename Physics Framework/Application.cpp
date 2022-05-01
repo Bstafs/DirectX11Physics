@@ -166,7 +166,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	{
 		gameObject = new GameObject("Cube " + i, cubeGeometry, shinyMaterial);
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
-		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 5.0f, 10.0f);
+		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 0.5f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
 	//	gameObject->GetParticleModel()->SetToggleGravity(true);
 		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
@@ -769,7 +769,7 @@ void Application::Update()
 
 	if (GetAsyncKeyState('9'))
 	{
-		m_gameObjects[1]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
+		m_gameObjects[6]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
 	}
 
 	//if (GetAsyncKeyState('5') && 0x8000)
@@ -809,6 +809,8 @@ void Application::Update()
 			}
 		}
 	}
+
+	m_gameObjects[5]->GetParticleModel()->SetToggleGravity(true);
 
 	dwTimeStart = dwTimeCur;
 

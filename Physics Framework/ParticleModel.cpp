@@ -19,6 +19,7 @@ void ParticleModel::Update(const float deltaTime)
 	MoveConstantVelocity(deltaTime);
 	Thrust(deltaTime);
 	UpdatePosition(deltaTime);
+	CheckLevel();
 
 	m_netForce = Vector3(0, 0, 0);
 	m_acceleration = Vector3(0, 0, 0);
@@ -135,4 +136,17 @@ bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
 	float radiusSq = radius * radius;
 	float distanceSq = (m_transform->GetPosition().x * position.x) + (m_transform->GetPosition().y * position.y) + (m_transform->GetPosition().z * position.z);
 	float distance = sqrt(distanceSq);
+
+	return true;
+}
+
+void ParticleModel::CheckLevel()
+{
+	Vector3 position = m_transform->GetPosition();
+
+	if (position.y < 0.0f)
+	{
+		m_transform->SetPosition(position.x,5.0f,position.z);
+		m_velocity.y = 0.0f;
+	}
 }
