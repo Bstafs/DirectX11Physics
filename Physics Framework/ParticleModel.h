@@ -64,7 +64,6 @@ private:
 	void DragTurbulentFlow();
 	void Thrust(float deltaTime);
 	void UpdatePosition(const float deltaTime);
-	void CheckLevel();
 
 protected:
 	Vector3 m_netForce;
