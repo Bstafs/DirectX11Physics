@@ -43,8 +43,8 @@ protected:
 
 private:
 	Quaternion m_rotation;
-	XMMATRIX m_matrixRotation;
 	Vector3 m_scale;
+	Vector3 _rotation;
 	XMFLOAT4X4 m_world;
 };
 
