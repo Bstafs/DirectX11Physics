@@ -175,7 +175,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetDrag(4.0f, 4.0f, 4.0f);
-		//gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 1.0f, 0.0f);
+		gameObject->GetRigidBody()->SetAngularVelocity(0.0f, 0.0f, 0.0f);
 		m_gameObjects.push_back(gameObject);
 	}
 	gameObject = new GameObject("donut", herculesGeometry, shinyMaterial);
@@ -750,6 +750,7 @@ void Application::Update()
 
 	// Move Objects Collisons
 
+
 	if (GetAsyncKeyState('5'))
 	{
 		moveLeft(5);
@@ -767,10 +768,14 @@ void Application::Update()
 		moveRight(6);
 	}
 
+<<<<<<< HEAD
 	if (GetAsyncKeyState('9'))
 	{
 		m_gameObjects[6]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
 	}
+=======
+
+>>>>>>> parent of 1e8dd2c (Fixed RigidBody)
 
 	//if (GetAsyncKeyState('5') && 0x8000)
 	//{
@@ -892,4 +897,3 @@ void Application::Draw()
 	//
 	_pSwapChain->Present(0, 0);
 }
-

@@ -23,8 +23,8 @@ void Transform::Update(float t)
 	// Calculate world matrix
 	XMMATRIX scale = XMMatrixScaling(m_scale.x, m_scale.y, m_scale.z);
 	XMMATRIX translation = XMMatrixTranslation(m_position.x, m_position.y, m_position.z);
-	XMMATRIX matrixRotation;
-	CalculateTransformMatrixRowMajor(matrixRotation, Vector3(), m_rotation );
 
-	XMStoreFloat4x4(&m_world, scale * matrixRotation * translation);
+	CalculateTransformMatrixRowMajor(m_matrixRotation, Vector3(), m_rotation );
+
+	XMStoreFloat4x4(&m_world, scale * m_matrixRotation * translation);
 }
