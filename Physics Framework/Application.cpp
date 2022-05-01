@@ -691,11 +691,10 @@ void Application::moveLeft(int objectNumber)
 	m_gameObjects[objectNumber - 2]->GetParticleModel()->SetVelocity(velocity);
 }
 
-
 void Application::moveRight(int objectNumber)
 {
 	Vector3 velocity = m_gameObjects[objectNumber - 2]->GetParticleModel()->GetVelocity();
-	velocity.x += 0.2f;
+	velocity.x += 0.02f;
 	m_gameObjects[objectNumber - 2]->GetParticleModel()->SetVelocity(velocity);
 }
 
@@ -739,7 +738,6 @@ void Application::Update()
 	}
 
 	// Move Objects Collisons
-
 
 	if (GetAsyncKeyState('5'))
 	{
