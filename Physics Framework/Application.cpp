@@ -168,7 +168,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 		gameObject->GetTransform()->SetPosition(-4.0f + (i * 2.0f), 5.0f, 10.0f);
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
-		gameObject->GetParticleModel()->SetToggleGravity(true);
+	//	gameObject->GetParticleModel()->SetToggleGravity(true);
 		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
 		gameObject->GetParticleModel()->SetMass(1.0f);
 		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);

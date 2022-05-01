@@ -135,16 +135,4 @@ bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
 	float radiusSq = radius * radius;
 	float distanceSq = (m_transform->GetPosition().x * position.x) + (m_transform->GetPosition().y * position.y) + (m_transform->GetPosition().z * position.z);
 	float distance = sqrt(distanceSq);
-
-	int dMin = 0;
-
-	for (int i = 0; i < 3; i++)
-	{
-
-	}
-
-	if (dMin <= radiusSq)
-	{
-		return true;
-	}
 }
