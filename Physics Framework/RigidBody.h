@@ -38,7 +38,7 @@ private:
 
 	Transform* m_transform;
 
-	float m_mass = 1.0f;
+	float m_mass = 10.0f;
 
 private:
 	void CalculateInertiaTensor(float dx, float dy, float dz);

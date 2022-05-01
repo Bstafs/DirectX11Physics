@@ -17,6 +17,7 @@ GameObject::~GameObject()
 
 void GameObject::Update(const float t)
 {
+
 	m_particleModel->Update(t);	
 	m_rigidbody->Update(t);
 	m_transform->Update(t);

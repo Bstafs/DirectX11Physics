@@ -20,7 +20,7 @@ public:
 	void MoveConstantVelocity(const float deltaTime);
 	void MoveConstantAcceleration();
 
-	// Setters and Getters for forces/collisions
+	// Setters and Getters for velocity/acceleration/netforce/mass/drag
 	Vector3 GetVelocity() const { return m_velocity; }
 	void SetVelocity(Vector3 velocity) { m_velocity = velocity; }
 	void SetVelocity(float x, float y, float z) { m_velocity.x = x; m_velocity.y = y; m_velocity.z = z; }
@@ -40,6 +40,8 @@ public:
 	void SetDrag(Vector3 drag) { m_drag = drag; }
 	void SetDrag(float x, float y, float z) { m_drag.x = x; m_drag.y = y; m_drag.z = z; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 	Vector3 GetFriction() const { return m_friction; }
 	void SetFriction(Vector3 friction) { m_friction = friction; }
 	void SetFriction(float x, float y, float z) { m_friction.x = x; m_friction.y = y; m_friction.z = z; }
@@ -47,22 +49,25 @@ public:
 	bool ToggleGravity() const { return m_toggleGravity; }
 	void SetToggleGravity(bool gravity){ m_toggleGravity = gravity; }
 
+=======
+>>>>>>> parent of e14c98f (Week 10 - Finished Forces)
+=======
+>>>>>>> parent of e14c98f (Week 10 - Finished Forces)
 	void AddForce(Vector3 force) { m_netForce += force; }
 
 	// Collisions
 	float GetCollisionRadius() const { return m_boundSphereRadius; }
 	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
 
+	void CheckFloorCollisions();
 	bool CheckSphereColision(Vector3 position, float radius);
 	bool CheckAABBCollision(Vector3 position, float radius);
 
 private:
 	void Gravity();
-	void Friction();
 	void DragForce();
 	void DragLaminarFlow();
 	void DragTurbulentFlow();
-	void Thrust(float deltaTime);
 	void UpdatePosition(const float deltaTime);
 	void CheckLevel();
 protected:
@@ -71,7 +76,6 @@ protected:
 	Vector3 m_acceleration;
 	Vector3 m_friction;
 	Vector3 m_drag;
-	Vector3 m_thrust;
 
 	Transform* m_transform;
 

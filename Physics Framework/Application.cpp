@@ -157,7 +157,6 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetPosition(0.0f, 0.0f, 0.0f);
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
-	gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
 	gameObject->GetParticleModel()->SetToggleGravity(false);
 	m_gameObjects.push_back(gameObject);
@@ -170,7 +169,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 		gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
 		gameObject->GetParticleModel()->SetToggleGravity(false);
 		gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
-		gameObject->GetParticleModel()->SetMass(1.0f);
+		gameObject->GetParticleModel()->SetMass(10.0f);
 		gameObject->GetParticleModel()->SetAcceleration(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetNetForce(0.0f, 0.0f, 0.0f);
 		gameObject->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
@@ -182,7 +181,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetScale(0.5f, 0.5f, 0.5f);
 	gameObject->GetTransform()->SetPosition(-4.0f, 0.5f, 10.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pTextureRV);
-	//m_gameObjects.push_back(gameObject);
+	m_gameObjects.push_back(gameObject);
 	return S_OK;
 }
 
@@ -672,26 +671,32 @@ void Application::Cleanup()
 
 void Application::moveForward(int objectNumber)
 {
+	//Vector3 position = _gameObjects[objectNumber]->GetTransform()->GetPosition();
 	Vector3 velocity = m_gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
-	Vector3 angularVelocity = m_gameObjects[objectNumber]->GetRigidBody()->GetAngularVelocity();
-
+	//Vector3 angularVelocity = m_gameObjects[objectNumber]->GetRigidBody()->GetAngularVelocity();
+	//Vector3 force = { 0.0f,0.0f,20.0f };
+	//m_gameObjects[objectNumber]->GetParticleModel()->AddForce(force);
+	//position.z -= 0.02f;
 	velocity.z -= 0.2f;
-	angularVelocity.z -= 0.2f;
+	//angularVelocity.z -= 0.2f;
 
+	//_gameObjects[objectNumber]->GetTransform()->SetPosition(position);
 	m_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
-	m_gameObjects[objectNumber]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+	//m_gameObjects[objectNumber]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+
 }
 
 void Application::moveBackward(int objectNumber)
 {
+	//Vector3 position = _gameObjects[objectNumber-2]->GetTransform()->GetPosition();
 	Vector3 velocity = m_gameObjects[objectNumber - 2]->GetParticleModel()->GetVelocity();
-	Vector3 angularVelocity = m_gameObjects[objectNumber - 2]->GetRigidBody()->GetAngularVelocity();
-
+	//	Vector3 angularVelocity = m_gameObjects[objectNumber - 2]->GetRigidBody()->GetAngularVelocity();
+		//position.z += 0.02f;
 	velocity.z += 0.2f;
-	angularVelocity.z += 0.2f;
-
+	//angularVelocity.z += 0.2f;
+	//_gameObjects[objectNumber-2]->GetTransform()->SetPosition(position);
 	m_gameObjects[objectNumber - 2]->GetParticleModel()->SetVelocity(velocity);
-	m_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
+	//m_gameObjects[objectNumber - 2]->GetRigidBody()->SetAngularVelocity(angularVelocity);
 }
 
 void Application::moveLeft(int objectNumber)
@@ -798,15 +803,14 @@ void Application::Update()
 		gameObject->Update(deltaTime);
 	}
 
-	// Update Collisions
 	for (int i = 0; i < m_gameObjects.size() - 1; i++)
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
 		{
 			if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
 			{
-				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
-				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
+				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f,0.0f,0.0f);
 			}
 		}
 	}
