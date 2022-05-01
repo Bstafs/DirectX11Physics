@@ -768,18 +768,6 @@ void Application::Update()
 		moveRight(6);
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	if (GetAsyncKeyState('9'))
-	{
-		m_gameObjects[1]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
-	}
-=======
-
->>>>>>> parent of 1e8dd2c (Fixed RigidBody)
-=======
-
->>>>>>> parent of 1e8dd2c (Fixed RigidBody)
 
 	//if (GetAsyncKeyState('5') && 0x8000)
 	//{
