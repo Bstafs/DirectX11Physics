@@ -23,11 +23,10 @@ public:
 	Vector3 GetScale() const { return m_scale; }
 
 	void SetRotation(Quaternion quat) { m_rotation = quat; }
-	void SetRotation(XMMATRIX mat) { m_matrixRotation = mat; }
 	void SetRotation(Vector3 rotation) { SetRotation(rotation.x,rotation.y,rotation.z); }
 	void SetRotation(float x, float y, float z) 
 	{
-		XMVECTOR xmVector = XMQuaternionRotationMatrix(XMMatrixRotationX(x) * XMMatrixRotationX(y) * XMMatrixRotationX(z));
+		XMVECTOR xmVector = XMQuaternionRotationMatrix(XMMatrixRotationX(x) * XMMatrixRotationY(y) * XMMatrixRotationZ(z));
 		XMFLOAT4 quaternionFloat;
 		XMStoreFloat4(&quaternionFloat, xmVector);
 		m_rotation = Quaternion(quaternionFloat.w, quaternionFloat.x, quaternionFloat.y, quaternionFloat.z);
