@@ -76,7 +76,7 @@ protected:
 
 	Transform* m_transform;
 
-	float m_mass;
+	float m_mass = 1.0f;
 
 	bool m_useLaminar;
 private:
@@ -84,7 +84,7 @@ private:
 	float m_weight = 1.0f;
 
 	bool m_hasGravity;
-	bool m_toggleGravity;
+	bool m_toggleGravity = true;
 
 	float m_boundSphereRadius;
 
