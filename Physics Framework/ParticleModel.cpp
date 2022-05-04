@@ -30,9 +30,9 @@ void ParticleModel::MoveConstantAcceleration(const float deltaTime)
 {
 	// acceleration = acceleration * time + 0.5 * acceleration * time * time
 
-	m_acceleration.x = m_acceleration.x * deltaTime + 0.5 * m_acceleration.x * deltaTime * deltaTime;
-	m_acceleration.y = m_acceleration.y * deltaTime + 0.5 * m_acceleration.y * deltaTime * deltaTime;
-	m_acceleration.z = m_acceleration.z * deltaTime + 0.5 * m_acceleration.z * deltaTime * deltaTime;
+	m_acceleration.x = m_acceleration.x * deltaTime + 0.5f * m_acceleration.x * deltaTime * deltaTime;
+	m_acceleration.y = m_acceleration.y * deltaTime + 0.5f * m_acceleration.y * deltaTime * deltaTime;
+	m_acceleration.z = m_acceleration.z * deltaTime + 0.5f * m_acceleration.z * deltaTime * deltaTime;
 }
 void ParticleModel::Acceleration()
 {
