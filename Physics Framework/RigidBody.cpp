@@ -25,7 +25,7 @@ void RigidBody::Update(const float deltaTime)
 	CalculateAngularOrientation(deltaTime);
 }
 
-void RigidBody::CalculateTorque(Vector3 force, Vector3 forceAppliedLocation)
+void RigidBody::CalculateTorque(Vector3 force, Vector3 forceAppliedLocation, const float deltaTime)
 {
 	m_torque = forceAppliedLocation.CrossProduct(force);
 
@@ -33,7 +33,7 @@ void RigidBody::CalculateTorque(Vector3 force, Vector3 forceAppliedLocation)
 	CalculateAngularAcceleration();
 
 	//Calculate Angular Velocity
-	CalculateAngularVelocity();
+	CalculateAngularVelocity(deltaTime);
 }
 
 void RigidBody::CalculateInertiaTensor(float dx, float dy, float dz)
@@ -53,11 +53,11 @@ void RigidBody::CalculateAngularAcceleration()
 
 }
 
-void RigidBody::CalculateAngularVelocity()
+void RigidBody::CalculateAngularVelocity(const float deltaTime)
 {
-	m_angularVelocity.x = m_angularVelocity.x + m_angularAcceleration.x;
-	m_angularVelocity.y = m_angularVelocity.y + m_angularAcceleration.y;
-	m_angularVelocity.z = m_angularVelocity.z + m_angularAcceleration.z;
+	m_angularVelocity.x = m_angularVelocity.x + m_angularAcceleration.x * deltaTime;
+	m_angularVelocity.y = m_angularVelocity.y + m_angularAcceleration.y * deltaTime;
+	m_angularVelocity.z = m_angularVelocity.z + m_angularAcceleration.z * deltaTime;
 
 }
 

@@ -762,15 +762,15 @@ void Application::Update()
 
 	if (GetAsyncKeyState('J'))
 	{
-		 m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.5f, 0.0f, 0.0f)); // Front Face, Left Edge
+		 m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.5f, 0.0f, 0.0f),deltaTime); // Front Face, Left Edge
 	}
 	if (GetAsyncKeyState('K'))
 	{
-		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.0f, -0.5f, 0.0f)); //  Front Face, Top Edge
+		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.0f, -0.5f, 0.0f),deltaTime); //  Front Face, Top Edge
 	}
 	if (GetAsyncKeyState('L'))
 	{
-		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, 1.0f), Vector3(0.5f, 0.0f, 0.0f)); //  Front Face, Right Edge
+		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, 1.0f), Vector3(0.5f, 0.0f, 0.0f),deltaTime); //  Front Face, Right Edge
 	}
 
 	if (GetAsyncKeyState('T'))
