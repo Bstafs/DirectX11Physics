@@ -5,7 +5,7 @@ RigidBody::RigidBody()
 
 	m_angularVelocity = Vector3();
 	m_angularAcceleration = XMFLOAT3();
-	m_angularDamping = 0.4f;
+	m_angularDamping = 0.9f;
 
 	//Calculate Inertia Tensor
 	CalculateInertiaTensor(1.0f, 1.0f, 1.0f);
@@ -46,11 +46,9 @@ void RigidBody::CalculateInertiaTensor(float dx, float dy, float dz)
 
 void RigidBody::CalculateAngularAcceleration()
 {
-
 	XMMATRIX inverted = XMMatrixInverse(nullptr, XMLoadFloat3x3(&m_inertiaTensor));
 	XMFLOAT3 torque = m_torque.Vector3ToXMFLOAT3();
 	XMStoreFloat3(&m_angularAcceleration, XMVector3Transform(XMLoadFloat3(&torque), inverted));
-
 }
 
 void RigidBody::CalculateAngularVelocity(const float deltaTime)
@@ -58,13 +56,11 @@ void RigidBody::CalculateAngularVelocity(const float deltaTime)
 	m_angularVelocity.x = m_angularVelocity.x + m_angularAcceleration.x * deltaTime;
 	m_angularVelocity.y = m_angularVelocity.y + m_angularAcceleration.y * deltaTime;
 	m_angularVelocity.z = m_angularVelocity.z + m_angularAcceleration.z * deltaTime;
-
 }
 
 void RigidBody::CalculateDrag(const float deltaTime)
 {
 	m_angularVelocity *= powf(m_angularDamping, deltaTime);
-
 }
 
 void RigidBody::CalculateAngularOrientation(const float deltaTime)
