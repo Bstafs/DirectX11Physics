@@ -18,7 +18,8 @@ public:
 	void Update(const float deltaTime);
 
 	void MoveConstantVelocity(const float deltaTime);
-	void MoveConstantAcceleration();
+	void MoveConstantAcceleration(const float deltaTime);
+	void Acceleration();
 
 	// Setters and Getters for forces/collisions
 	Vector3 GetVelocity() const { return m_velocity; }
