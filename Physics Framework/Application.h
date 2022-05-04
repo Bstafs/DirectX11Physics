@@ -133,6 +133,7 @@ private:
 
 	Transform* m_transform;
 
+	bool ToggleCollisionsMode = true;
 private:
 	HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 	HRESULT InitDevice();

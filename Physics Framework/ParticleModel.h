@@ -54,7 +54,7 @@ public:
 	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
 
 	bool CheckSphereColision(Vector3 position, float radius);
-	bool CheckAABBCollision(Vector3 position, float radius);
+	bool CheckBoxCollision(Vector3 position, float radius);
 
 private:
 	void Gravity();
@@ -80,7 +80,7 @@ protected:
 	bool m_useLaminar;
 private:
 	float m_gravity;
-	float m_weight;
+	float m_weight = 1.0f;
 
 	bool m_hasGravity;
 	bool m_toggleGravity;

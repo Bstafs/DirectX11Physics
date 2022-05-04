@@ -131,12 +131,8 @@ bool ParticleModel::CheckSphereColision(Vector3 position, float radius)
 		(m_transform->GetPosition().z - position.z) * (m_transform->GetPosition().z - position.z) <= m_boundSphereRadius * radius);
 }
 
-bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
+bool ParticleModel::CheckBoxCollision(Vector3 position, float radius)
 {
-	float radiusSq = radius * radius;
-	float distanceSq = (m_transform->GetPosition().x * position.x) + (m_transform->GetPosition().y * position.y) + (m_transform->GetPosition().z * position.z);
-	float distance = sqrt(distanceSq);
-
 	return false;
 }
 

@@ -158,6 +158,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
 	gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
+	gameObject->GetParticleModel()->SetMass(1.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
 	gameObject->GetParticleModel()->SetToggleGravity(false);
 	m_gameObjects.push_back(gameObject);
@@ -761,6 +762,15 @@ void Application::Update()
 		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
 	}
 
+	if (GetAsyncKeyState('T'))
+	{
+		ToggleCollisionsMode = true;
+	}
+	if (GetAsyncKeyState('Y'))
+	{
+		ToggleCollisionsMode = false;
+	}
+
 	//if (GetAsyncKeyState('5') && 0x8000)
 	//{
 	//	Debug::GetInstance().DebugWrite("KeyPressed\n");
@@ -791,10 +801,23 @@ void Application::Update()
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
 		{
-			if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+			if (ToggleCollisionsMode == true)
 			{
-				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
-				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+				if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+				{
+					m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					Debug::GetInstance().DebugWrite("Sphere Collision Detected!\n");
+				}
+			}
+			else if (ToggleCollisionsMode == false)
+			{
+				if (m_gameObjects[i]->GetParticleModel()->CheckBoxCollision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+				{
+					m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					Debug::GetInstance().DebugWrite("Box Collision Detected!\n");
+				}
 			}
 		}
 	}
