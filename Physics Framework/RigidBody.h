@@ -20,7 +20,7 @@ public:
 	void SetTransform(Transform* tf) { m_transform = tf; }
 	Transform* GetTransform() { return m_transform; }
 
-	void CalculateTorque(Vector3 force, Vector3 forceAppliedLocation);
+	void CalculateTorque(Vector3 force, Vector3 forceAppliedLocation, const float deltaTime);
 
 private:
 
@@ -43,7 +43,7 @@ private:
 private:
 	void CalculateInertiaTensor(float dx, float dy, float dz);
 	void CalculateAngularAcceleration();
-	void CalculateAngularVelocity();
+	void CalculateAngularVelocity(const float deltaTime);
 	void CalculateDrag(const float deltaTime);
 	void CalculateAngularOrientation(const float deltaTime);
 };

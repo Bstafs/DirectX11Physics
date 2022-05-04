@@ -18,7 +18,8 @@ public:
 	void Update(const float deltaTime);
 
 	void MoveConstantVelocity(const float deltaTime);
-	void MoveConstantAcceleration();
+	void MoveConstantAcceleration(const float deltaTime);
+	void Acceleration();
 
 	// Setters and Getters for forces/collisions
 	Vector3 GetVelocity() const { return m_velocity; }
@@ -75,15 +76,15 @@ protected:
 
 	Transform* m_transform;
 
-	float m_mass;
+	float m_mass = 1.0f;
 
 	bool m_useLaminar;
 private:
 	float m_gravity;
-	float m_weight;
+	float m_weight = 1.0f;
 
 	bool m_hasGravity;
-	bool m_toggleGravity;
+	bool m_toggleGravity = true;
 
 	float m_boundSphereRadius;
 

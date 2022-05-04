@@ -15,7 +15,8 @@ void ParticleModel::Update(const float deltaTime)
 	Gravity();
 	Friction();
 	DragForce();
-	MoveConstantAcceleration();
+	MoveConstantAcceleration(deltaTime);
+	Acceleration();
 	MoveConstantVelocity(deltaTime);
 	Thrust(deltaTime);
 	UpdatePosition(deltaTime);
@@ -25,14 +26,23 @@ void ParticleModel::Update(const float deltaTime)
 	m_acceleration = Vector3(0, 0, 0);
 }
 
-void ParticleModel::MoveConstantVelocity(const float deltaTime)
+void ParticleModel::MoveConstantAcceleration(const float deltaTime)
 {
-	m_velocity = m_velocity + m_acceleration * deltaTime;
-}
+	// acceleration = acceleration * time + 0.5 * acceleration * time * time
 
-void ParticleModel::MoveConstantAcceleration()
+	m_acceleration.x = m_acceleration.x * deltaTime + 0.5f * m_acceleration.x * deltaTime * deltaTime;
+	m_acceleration.y = m_acceleration.y * deltaTime + 0.5f * m_acceleration.y * deltaTime * deltaTime;
+	m_acceleration.z = m_acceleration.z * deltaTime + 0.5f * m_acceleration.z * deltaTime * deltaTime;
+}
+void ParticleModel::Acceleration()
 {
 	m_acceleration = m_netForce / m_mass;
+}
+
+void ParticleModel::MoveConstantVelocity(const float deltaTime)
+{
+	// velocity = old velocity + acceleration * time
+	m_velocity = m_velocity + m_acceleration * deltaTime;
 }
 
 void ParticleModel::UpdatePosition(const float deltaTime)
@@ -70,7 +80,7 @@ void ParticleModel::Gravity()
 	if (m_toggleGravity == true)
 	{
 		m_weight = m_mass * m_gravity;
-	    m_netForce.y -= m_weight;
+		m_netForce.y -= m_weight;
 	}
 	else
 	{
@@ -112,9 +122,9 @@ void ParticleModel::DragTurbulentFlow()
 	float dragCoefficient = 1.05f; // cube drag coefficient 
 
 	// 0.5 * fluid density * drag coefficient * reference area * velocity * velocity
-	m_drag.x = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
-	m_drag.y = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
-	m_drag.z = 0.5 * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
+	m_drag.x = 0.5f * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
+	m_drag.y = 0.5f * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
+	m_drag.z = 0.5f * fluidDensity * dragCoefficient * referenceArea * velocityMagnitude * velocityMagnitude;
 
 	m_drag = (unitVelocity * m_drag.x) * -1.0f;
 	m_drag = (unitVelocity * m_drag.y) * -1.0f;
@@ -143,9 +153,10 @@ void ParticleModel::CheckLevel()
 {
 	Vector3 position = m_transform->GetPosition();
 
-	if (position.y < 0.0f)
-	{
-		m_transform->SetPosition(position.x, 5.0f, position.z);
-		m_velocity.y = 0.0f;
-	}
+		if (position.y < 0.0f)
+		{
+			Debug::GetInstance().DebugWrite("Gravity Cube Detected!\n");
+				m_transform->SetPosition(position.x, 10.0f, position.z);
+				m_velocity.y = 0.0f;
+		}
 }

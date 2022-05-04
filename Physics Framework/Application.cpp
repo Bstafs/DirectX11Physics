@@ -158,6 +158,7 @@ HRESULT Application::Initialise(HINSTANCE hInstance, int nCmdShow)
 	gameObject->GetTransform()->SetScale(15.0f, 15.0f, 15.0f);
 	gameObject->GetTransform()->SetRotation(XMConvertToRadians(90.0f), 0.0f, 0.0f);
 	gameObject->GetParticleModel()->SetCollisionRadius(1.0f);
+	gameObject->GetParticleModel()->SetMass(1.0f);
 	gameObject->GetAppearance()->SetTextureRV(_pGroundTextureRV);
 	gameObject->GetParticleModel()->SetToggleGravity(false);
 	m_gameObjects.push_back(gameObject);
@@ -673,8 +674,11 @@ void Application::Cleanup()
 void Application::moveForward(int objectNumber)
 {
 	Vector3 velocity = m_gameObjects[objectNumber]->GetParticleModel()->GetVelocity();
+	Vector3 accel = m_gameObjects[objectNumber]->GetParticleModel()->GetAcceleration();
 	velocity.z -= 0.2f;
+	accel.z -= 0.2f;
 	m_gameObjects[objectNumber]->GetParticleModel()->SetVelocity(velocity);
+	m_gameObjects[objectNumber]->GetParticleModel()->SetAcceleration(accel);
 }
 
 void Application::moveBackward(int objectNumber)
@@ -697,6 +701,8 @@ void Application::moveRight(int objectNumber)
 	velocity.x += 0.02f;
 	m_gameObjects[objectNumber - 2]->GetParticleModel()->SetVelocity(velocity);
 }
+
+
 
 void Application::Update()
 {
@@ -756,9 +762,26 @@ void Application::Update()
 		moveRight(6);
 	}
 
-	if (GetAsyncKeyState('9'))
+	if (GetAsyncKeyState('J'))
 	{
-		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 1.0f, 0.0f), Vector3(0.3f, 0.0f, 0.0f));
+		 m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.5f, 0.0f, 0.0f), deltaTime); // Front Face, Left Edge
+	}
+	if (GetAsyncKeyState('K'))
+	{
+		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, -1.0f), Vector3(0.0f, -0.5f, 0.0f), deltaTime); //  Front Face, Top Edge
+	}
+	if (GetAsyncKeyState('L'))
+	{
+		m_gameObjects[5]->GetRigidBody()->CalculateTorque(Vector3(0.0f, 0.0f, 1.0f), Vector3(0.5f, 0.0f, 0.0f), deltaTime); //  Front Face, Right Edge
+	}
+
+	if (GetAsyncKeyState('T'))
+	{
+		ToggleCollisionsMode = true;
+	}
+	if (GetAsyncKeyState('Y'))
+	{
+		ToggleCollisionsMode = false;
 	}
 
 	//if (GetAsyncKeyState('5') && 0x8000)
