@@ -54,7 +54,7 @@ public:
 	void SetCollisionRadius(float radius) { m_boundSphereRadius = radius; }
 
 	bool CheckSphereColision(Vector3 position, float radius);
-	bool CheckAABBCollision(Vector3 position, float radius);
+	bool CheckCubeCollision(Vector3 position, float radius);
 
 private:
 	void Gravity();

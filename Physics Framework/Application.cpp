@@ -791,10 +791,23 @@ void Application::Update()
 	{
 		for (int j = i + 1; j < m_gameObjects.size(); j++)
 		{
-			if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+			if (ToggleCollisionsMode == true)
 			{
-				m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
-				m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+				if (m_gameObjects[i]->GetParticleModel()->CheckSphereColision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+				{
+					m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					Debug::GetInstance().DebugWrite("Sphere Collision Detected!\n");
+				}
+			}
+			else if (ToggleCollisionsMode == false)
+			{
+				if (m_gameObjects[i]->GetParticleModel()->CheckCubeCollision(m_gameObjects[j]->GetTransform()->GetPosition(), m_gameObjects[j]->GetParticleModel()->GetCollisionRadius()))
+				{
+					m_gameObjects[i]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					m_gameObjects[j]->GetParticleModel()->SetVelocity(0.0f, 0.0f, 0.0f);
+					Debug::GetInstance().DebugWrite("Box Collision Detected!\n");
+				}
 			}
 		}
 	}

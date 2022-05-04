@@ -131,13 +131,12 @@ bool ParticleModel::CheckSphereColision(Vector3 position, float radius)
 		(m_transform->GetPosition().z - position.z) * (m_transform->GetPosition().z - position.z) <= m_boundSphereRadius * radius);
 }
 
-bool ParticleModel::CheckAABBCollision(Vector3 position, float radius)
+bool ParticleModel::CheckCubeCollision(Vector3 position, float radius)
 {
-	float radiusSq = radius * radius;
-	float distanceSq = (m_transform->GetPosition().x * position.x) + (m_transform->GetPosition().y * position.y) + (m_transform->GetPosition().z * position.z);
-	float distance = sqrt(distanceSq);
-
-	return false;
+	float cubeOffset = 0.5f; // cube offset for box collisions
+	return ((m_transform->GetPosition().x - cubeOffset <= position.x + cubeOffset && m_transform->GetPosition().x + cubeOffset >= position.x - cubeOffset) &&
+		(m_transform->GetPosition().y - cubeOffset <= position.y + cubeOffset && m_transform->GetPosition().y + cubeOffset >= position.y - cubeOffset) &&
+		(m_transform->GetPosition().z - cubeOffset <= position.z + cubeOffset && m_transform->GetPosition().z + cubeOffset >= position.z - cubeOffset));
 }
 
 void ParticleModel::CheckLevel()
